@@ -1,0 +1,15 @@
+[project]
+name = "livespec-website"
+version = "0.0.0"
+description = "Livespec website; Python dependencies supply shared livespec development tooling only"
+requires-python = ">=3.10.16"
+dependencies = []
+
+[dependency-groups]
+dev = ["livespec-dev-tooling"]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+livespec-dev-tooling = { git = "https://github.com/thewoolleyman/livespec-dev-tooling.git", tag = "v1.207.0" }

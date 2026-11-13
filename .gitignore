@@ -1,0 +1,137 @@
+# ---------------------------------------------------------------
+# macOS
+# ---------------------------------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ---------------------------------------------------------------
+# Editors / IDEs
+# ---------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ---------------------------------------------------------------
+# Dependencies
+# ---------------------------------------------------------------
+node_modules/
+.pnpm-store/
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+.pnp.*
+bower_components/
+vendor/bundle/
+
+# ---------------------------------------------------------------
+# Build output (common static-site / web frameworks)
+# ---------------------------------------------------------------
+dist/
+build/
+out/
+public/build/
+_site/
+.next/
+.nuxt/
+.output/
+.svelte-kit/
+.astro/
+.docusaurus/
+.vitepress/cache/
+.vitepress/dist/
+.vercel/
+.netlify/
+.wrangler/
+storybook-static/
+
+# ---------------------------------------------------------------
+# Caches / tooling
+# ---------------------------------------------------------------
+.cache/
+.parcel-cache/
+.turbo/
+.eslintcache
+.stylelintcache
+*.tsbuildinfo
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+coverage/
+.nyc_output/
+playwright-report/
+test-results/
+
+# Python (livespec dev-tooling runs via uv)
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# ---------------------------------------------------------------
+# Logs
+# ---------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------------------------------------------------------------
+# Environment / secrets
+# ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+
+# ---------------------------------------------------------------
+# Claude Code — per-user local settings (project settings.json IS committed)
+# ---------------------------------------------------------------
+.claude/settings.local.json
+
+# ---------------------------------------------------------------
+# livespec worktree-discipline pack (materialized by
+# `just install-worktree-pack`, never committed)
+# ---------------------------------------------------------------
+/dev-tooling/worktree-lib.sh
+/dev-tooling/branch-protection.sh
+/dev-tooling/gate-run.sh
+/dev-tooling/check-no-workflow-edits.sh
+/dev-tooling/worktree.just
+/dev-tooling/branch-protection.just
+/dev-tooling/.gitignore
+
+# ---------------------------------------------------------------
+# Beads / Dolt (livespec-orchestrator-beads-fabro) — config.yaml IS committed
+# ---------------------------------------------------------------
+/.beads/metadata.json
+/.beads/*.lock
+/.beads/*.log
+.dolt/
+*.db
+.beads-credential-key
+.beads/proxieddb/
