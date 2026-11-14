@@ -1,0 +1,9 @@
+{
+  "template": "livespec-with-diagrams",
+  "implementation": {
+    "plugin": "livespec-orchestrator-beads-fabro"
+  },
+  "worktree_discipline": {
+    "pack": "required"
+  }
+}
