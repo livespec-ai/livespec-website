@@ -116,7 +116,7 @@ I'm Chad Woolley. Bio blurb from my LinkedIn: Ex-GitLab, Ex-Pivotal, Ex-IBM, Ope
 
 After getting laid off at GitLab in June 2026 (the fourth "involuntary departure" of my career), I decided to take a hiatus to retool my knowledge and skills at the dawn of the Age of AI, and explore the limits of what is possible. livespec is the vehicle I chose.
 
-I spent 4 decades learning to use my hands to efficiently craft beautiful and high-quality code and documentation, and I probably wrote around a half-million lines of it with those hands (and often, with a pair-programmer).
+I spent 4 decades learning to use my hands to craft beautiful and high-quality code and documentation, with efficiency and discipline. I probably wrote around a half-million lines of it with those hands (and often, with a pair-programmer).
 
 But now, that skill is as marketable as a wagon-wheelwright in the age of automobiles. However, I still have decades of valuable knowledge from my myriad failures, and I've learned from countless brilliant humans how to see the forest for the trees.
 
