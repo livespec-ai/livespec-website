@@ -30,6 +30,9 @@ Temporary Items
 *.swo
 *~
 
+# Obsidian vault config (anywhere in the tree, e.g. site/.obsidian/)
+.obsidian/
+
 # ---------------------------------------------------------------
 # Dependencies
 # ---------------------------------------------------------------
