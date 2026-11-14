@@ -14,7 +14,7 @@ bootstrap:
 install-worktree-pack:
     uv run python -m livespec_dev_tooling.install_worktree_pack
 
-# Every check (SPECIFICATION/non-functional-requirements.md §"Check-aggregate command").
+# Every check (the check-aggregate command in SPECIFICATION/non-functional-requirements.md).
 check:
     uv run python scripts/check-site.py
 
