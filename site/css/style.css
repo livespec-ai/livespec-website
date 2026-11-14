@@ -1,0 +1,132 @@
+/* takahashi v1.0 (Jan 01, 2008) - An open source template by Chad Woolley - http://thewoolleyweb.com. Free to use for any purpose as long as the proper credits are given to the original author. */
+
+/* Adapted for livespec-ai.org: fixed minimum width removed, heading sizes
+   scale with the viewport, a left-justified prose style added, and grey
+   tones adjusted to meet WCAG 2.2 AA contrast. Greyscale only. */
+
+body {
+background: #FFFFFF;
+color: #303030;
+font: 100% Verdana,Tahoma,Arial,sans-serif;
+margin: 0;
+padding: 0;
+text-align: center;
+}
+
+a {
+text-decoration: none;
+}
+
+/*** Main container ***/
+
+#container {
+width: 100%;
+}
+
+/*** Header section ***/
+
+#header a {
+color: #ffffff;
+}
+
+#header h1 {
+background: #000000;
+color: #ffffff;
+font-style: italic;
+font-size: clamp(2em, 8vw, 3.5em);
+margin: 0;
+padding: 10px;
+}
+
+/*** Content ***/
+
+#content a {
+color: #000000;
+font-weight: bold;
+text-decoration: none;
+}
+
+#content a:hover {
+color: #404040;
+text-decoration: underline;
+}
+
+#content {
+background: #EAEAEA;
+color: #000000;
+font-weight: bold;
+letter-spacing: 1px;
+padding-bottom: 10px;
+overflow-wrap: break-word;
+}
+
+#content h1 {
+background-color: #C0C0C0;
+font-size: clamp(1.6em, 6vw, 2.7em);
+margin: 0px;
+margin-bottom: 10px;
+padding: 3px;
+}
+
+#content h2 {
+font-size: clamp(1.2em, 4.5vw, 1.9em);
+margin: 0px;
+padding: 0 10px 4px;
+}
+
+/* One-line framing under a takahashi link heading. */
+#content .caption {
+font-weight: normal;
+letter-spacing: normal;
+margin: 0 auto 18px;
+max-width: 75ch;
+padding: 0 16px;
+}
+
+/*** Prose: left-justified, normal weight, readable measure ***/
+
+#content .prose {
+font-size: 1.05em;
+font-weight: normal;
+letter-spacing: normal;
+line-height: 1.6;
+margin: 0 auto;
+max-width: 75ch;
+padding: 0 16px 16px;
+text-align: left;
+}
+
+#content .prose a {
+text-decoration: underline;
+}
+
+#content .prose h2,
+#content .prose h3 {
+font-size: 1.3em;
+padding: 0;
+margin: 1.2em 0 0.4em;
+}
+
+#content .prose .notice {
+border: 2px dashed #303030;
+padding: 8px 12px;
+}
+
+/*** Footer ***/
+
+#footer {
+background: #FFFFFF;
+color: #595959;
+font-size: 1.0em;
+font-weight: bold;
+padding: 10px 16px;
+}
+
+#footer a {
+color: #404040;
+display: inline-block;
+font-weight: bold;
+margin: 4px 0.6em;
+}
+
+/*** End of file ***/

@@ -2,8 +2,12 @@ pre-commit:
   commands:
     00-install-worktree-pack:
       run: just install-worktree-pack
+    10-check:
+      run: just check
 
 pre-push:
   commands:
     00-install-worktree-pack:
       run: just install-worktree-pack
+    10-check:
+      run: just check
