@@ -17,13 +17,13 @@ Control), never by typing into each other's panes (maintainer ruling
 
 ## Current state
 
-livespec plugins are installed at project scope (`.claude/settings.json`,
-pinned to the `release` channel, kept current by the `SessionStart` updater
-hook). The spec has not been seeded yet: there is no `SPECIFICATION/` tree and
-no `.livespec.jsonc`. The next step is `/livespec:seed`, an attended interview
-with the maintainer. Do not hand-create `.livespec.jsonc` or spec files before
-seed runs. After seed, merge `implementation.plugin` and `worktree_discipline`
-into `.livespec.jsonc`.
+The spec is seeded (`SPECIFICATION/`, template `livespec-with-diagrams`,
+currently v003) and `.livespec.jsonc` selects
+`livespec-orchestrator-beads-fabro` with `worktree_discipline.pack: required`.
+The site itself (`site/`) is not built yet. The beads work-items store,
+credential wrapper, GitHub App, and Fabro server (installation Phase 6) are not
+provisioned yet, so `capture-as-work-item` and `capture-impl-gaps` cannot run
+until they are.
 
 ## Spec lifecycle
 
