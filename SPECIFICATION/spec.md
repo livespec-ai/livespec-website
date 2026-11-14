@@ -95,23 +95,31 @@ bold link-heavy navigation headings.
   link lists) uses the takahashi look: large, bold, centered.
 - Prose content (homepage paragraphs, blog entry bodies) uses a
   **prose style** added for this site: left-justified, normal
-  font weight, comfortable line height, constrained to a readable
-  line length, and still greyscale.
-- The palette MUST be greyscale only (no hue).
+  font weight, comfortable line height, and constrained to a
+  readable line length.
+
+The normative palette, font, and prose-measure rules live in
+[constraints.md](constraints.md#styling).
 
 ## Definition of Done
 
-A livespec-website change MUST satisfy this DoD before merge:
+A livespec-website change MUST satisfy both parts of this DoD.
 
-- The spec change flows through the propose-change/revise loop; no
-  out-of-band edits.
-- Every page conforms to [contracts.md](contracts.md) and
+Before merge:
+
+- The spec change MUST flow through the propose-change/revise
+  loop, with no out-of-band edits.
+- Every page MUST conform to [contracts.md](contracts.md) and
   [constraints.md](constraints.md).
-- The site-wide link check passes (see
+- The site-wide link check MUST pass (see
   [non-functional-requirements.md](non-functional-requirements.md)).
-- The doctor static phase passes against the working spec.
-- After merge, the change is verified live on
-  `https://livespec-ai.com/`.
+- The doctor static phase MUST pass against the working spec.
+
+After merge:
+
+- The change MUST be verified live on `https://livespec-ai.com/`
+  per [non-functional-requirements.md](non-functional-requirements.md#contributor-workflow).
+  A change is not done until that verification succeeds.
 
 ## Non-goals
 

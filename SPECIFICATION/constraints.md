@@ -23,7 +23,8 @@ observe.
   HTTPS only.
 - Cloudflare proxies the domain in front of GitHub Pages, matching
   the existing `thewoolleyweb.com` arrangement.
-- `www.livespec-ai.com` redirects to the apex.
+- The `www` and `http` redirect behavior is specified in
+  [contracts.md](contracts.md#url-surface).
 
 ## Styling
 
