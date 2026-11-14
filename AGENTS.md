@@ -47,6 +47,12 @@ After the initial setup commit, every tracked change happens in a dedicated
 git worktree and lands through a PR against `main`, never as a direct edit on
 the primary checkout. Never bypass a rejecting hook.
 
+## Working style
+
+Read [`.ai/agent-working-style.md`](.ai/agent-working-style.md). In short: keep
+going until everything is done or you are blocked on the maintainer; batch
+blockers into one ask.
+
 ## PR process
 
 Read [`.ai/pr-process.md`](.ai/pr-process.md) before opening or landing a PR.
