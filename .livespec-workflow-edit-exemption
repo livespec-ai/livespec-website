@@ -1,0 +1,4 @@
+work_item=lsw-8tk
+reason=Deploy job renders site/ from content/ at deploy time (spec v007) so maintainer Markdown edits on main go live without local tooling; maintainer-authorized in-session 2026-11-14.
+change=additive
+ci_runtime=no-significant-increase
