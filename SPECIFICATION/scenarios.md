@@ -10,15 +10,15 @@ Given a visitor opens `https://livespec-ai.org/`
 
 When the page loads
 
-Then the visitor sees an introduction to Chad Woolley ("thewoolleyman")
+Then the visitor first sees livespec described as a "dark" software factory and an experimental work in progress, with a link to "The Software Factory: A Practitioner's Guide" on thewoolleyweb.com
 
-And the visitor sees livespec described as an experimental work in progress
+And the visitor next sees a link to the blog
 
-And the visitor sees the two goals: the specification–implementation feedback loop, and turning quality dials toward 11 within the fast/cheap/right trade-off
+And the visitor next sees the three goals: the specification–implementation feedback loop, turning quality dials toward 11 within the fast/cheap/right trade-off, and finding the minimal human attention the factory needs
 
-And the visitor sees a project-state summary made mostly of links to the livespec GitHub repositories
+And the visitor next sees a project-state summary made mostly of links to the livespec GitHub repositories
 
-And the visitor sees a link to the blog
+And the visitor finally sees who is responsible for livespec: an introduction to Chad Woolley ("thewoolleyman")
 
 ## Scenario: Visitor follows a project-state link
 
@@ -36,9 +36,9 @@ When the page loads
 
 Then the visitor sees a list of blog entries, newest first, each with its title and publication date
 
-When the visitor selects the placeholder entry
+When the visitor selects a placeholder entry
 
-Then the visitor arrives at `/blog/<slug>/` showing the entry's title, publication date, and placeholder text
+Then the visitor arrives at `/blog/<slug>/` showing the entry's title, author, publication date, and placeholder text
 
 And the entry links back to `/blog/` and `/`
 
@@ -50,7 +50,7 @@ When the page loads
 
 Then all content is readable without horizontal scrolling
 
-And prose paragraphs are left-justified
+And prose paragraphs are start-aligned in a single readable column
 
 ## Scenario: Visitor browses with JavaScript disabled
 
@@ -67,6 +67,16 @@ Given a visitor requests `http://www.livespec-ai.org/blog/`
 When the request completes
 
 Then the visitor lands on `https://livespec-ai.org/blog/`
+
+## Scenario: Maintainer reviews the site from the filesystem
+
+Given a maintainer opens `site/index.html` from a local checkout via a `file://` URL
+
+When the page loads and the maintainer follows the header, body, and footer links
+
+Then every page renders with the site stylesheet
+
+And every internal link opens the target page rather than a directory listing
 
 ## Scenario: Search engine indexes the site
 

@@ -23,9 +23,19 @@ Rules:
 - `http://` requests MUST redirect to `https://`.
 - `https://www.livespec-ai.org/<path>` MUST redirect permanently
   to `https://livespec-ai.org/<path>`.
-- Directory URLs are served from `<dir>/index.html`; links MUST use
-  the trailing-slash directory form (`/blog/`, not
+- Directory URLs are served from `<dir>/index.html`. Canonical
+  URLs (canonical tags, Open Graph URLs, the sitemap) MUST use the
+  trailing-slash directory form (`/blog/`, not
   `/blog/index.html`).
+- Internal links and the stylesheet link MUST be relative paths
+  that name the target file (`blog/index.html`,
+  `../css/style.css`), so the site navigates and renders when
+  opened from the filesystem for local review. `/404.html` MUST
+  instead use root-absolute paths, because GitHub Pages serves it
+  at arbitrary request paths. Wherever this specification names an
+  internal link target by its URL (e.g. `/`, `/blog/`), it
+  identifies the target page; the `href` form is governed by this
+  rule.
 - A published URL MUST NOT be removed or renamed without a
   redirect page at the old URL.
 
@@ -44,7 +54,8 @@ Every HTML page MUST:
 - Include Open Graph tags `og:title`, `og:description`, `og:url`,
   and `og:type` (`website` for the homepage and blog index,
   `article` for blog entries).
-- Link the stylesheet as `/css/style.css` and no other stylesheet.
+- Link exactly one stylesheet, `/css/style.css`, by the path form
+  the URL-surface rules above require.
 - Include the site traffic-metrics tag (see
   [constraints.md](constraints.md#traffic-metrics)).
 - Contain a header with the site title linking to `/`, and a
@@ -55,6 +66,11 @@ Every HTML page MUST:
 
 Each blog entry page additionally MUST:
 
+- Wrap the entry in an `<article>` element whose `<header>`
+  contains the entry's `<h1>` title and a byline naming the author
+  and the publication `<time datetime="YYYY-MM-DD">`.
+- Include `<meta name="author" content="Chad Woolley">` and
+  `<meta property="article:author" content="https://thewoolleyweb.com/">`.
 - Mark its publication date with
   `<time datetime="YYYY-MM-DD">` and include
   `<meta property="article:published_time" content="YYYY-MM-DD">`.

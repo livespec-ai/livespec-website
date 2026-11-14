@@ -27,6 +27,8 @@ ORIGIN = "https://livespec-ai.org"
 SITE = Path(__file__).resolve().parent.parent / "site"
 GOATCOUNTER = "https://livespec-ai.goatcounter.com/count"
 FOOTER_LINKS = {"/", "/blog/", "https://github.com/thewoolleyman/livespec", "https://thewoolleyweb.com/"}
+AUTHOR = "Chad Woolley"
+AUTHOR_URL = "https://thewoolleyweb.com/"
 SKIP_SCHEMES = ("mailto:", "tel:", "javascript:", "data:")
 
 failures: list[str] = []
@@ -45,9 +47,12 @@ class Page(HTMLParser):
         self.meta: dict[str, str] = {}
         self.links: list[dict[str, str]] = []
         self.scripts: list[dict[str, str]] = []
+        self.anchors: list[str] = []
         self.footer_hrefs: set[str] = set()
-        self.header_home = False
+        self.header_hrefs: set[str] = set()
         self.times: list[str] = []
+        self.tags: list[str] = []
+        self.article_header_h1 = False
         self.lang = ""
         self.title = ""
         self._in_title = False
@@ -57,6 +62,10 @@ class Page(HTMLParser):
         a = {k: (v or "") for k, v in attrs}
         if "id" in a:
             self.ids.add(a["id"])
+        if tag == "h1" and self.tags[-2:] == ["article", "header"]:
+            self.article_header_h1 = True
+        if tag in ("article", "header"):
+            self.tags.append(tag)
         if tag == "html":
             self.lang = a.get("lang", "")
         if tag == "div":
@@ -80,20 +89,32 @@ class Page(HTMLParser):
                 if attr in a:
                     self.refs.append(a[attr])
         if tag == "a" and "href" in a:
+            self.anchors.append(a["href"])
             if "footer" in self._div_stack:
                 self.footer_hrefs.add(a["href"])
-            if "header" in self._div_stack and a["href"] == "/":
-                self.header_home = True
+            if "header" in self._div_stack:
+                self.header_hrefs.add(a["href"])
 
     def handle_endtag(self, tag):
         if tag == "div" and self._div_stack:
             self._div_stack.pop()
+        if tag in ("article", "header") and self.tags:
+            self.tags.pop()
         if tag == "title":
             self._in_title = False
 
     def handle_data(self, data):
         if self._in_title:
             self.title += data
+
+
+def site_url(upath: str, href: str) -> str:
+    """Resolve href from upath; internal targets become /dir/ URL paths."""
+    absolute = urldefrag(urljoin(ORIGIN + upath, href))[0]
+    if not absolute.startswith(ORIGIN + "/"):
+        return href
+    path = urlparse(absolute).path
+    return path[: -len("index.html")] if path.endswith("/index.html") else path
 
 
 def url_path(file: Path) -> str:
@@ -144,17 +165,33 @@ def main() -> int:
             if not page.meta.get(key):
                 fail(upath, f"missing meta {key}")
         sheets = [l.get("href") for l in page.links if l.get("rel") == "stylesheet"]
-        if sheets != ["/css/style.css"]:
-            fail(upath, f"stylesheet must be exactly /css/style.css, got {sheets}")
+        # Relative so pages render from file:// for local review; /404.html
+        # stays absolute because Pages serves it at arbitrary paths.
+        depth = len(file.relative_to(SITE).parts) - 1
+        want_sheet = "/css/style.css" if upath == "/404.html" else "../" * depth + "css/style.css"
+        if sheets != [want_sheet]:
+            fail(upath, f"stylesheet must be exactly {want_sheet}, got {sheets}")
         gc = [s for s in page.scripts if s.get("data-goatcounter") == GOATCOUNTER]
         if not gc or "async" not in gc[0]:
             fail(upath, "missing async GoatCounter count.js script")
         if f"{GOATCOUNTER}?p={upath}" not in page.refs:
             fail(upath, "missing GoatCounter <noscript> pixel for this path")
-        if not page.header_home:
+        if "/" not in {site_url(upath, h) for h in page.header_hrefs}:
             fail(upath, "header must link the site title to /")
-        if not FOOTER_LINKS <= page.footer_hrefs:
-            fail(upath, f"footer missing links: {sorted(FOOTER_LINKS - page.footer_hrefs)}")
+        footer = {site_url(upath, h) for h in page.footer_hrefs}
+        if not FOOTER_LINKS <= footer:
+            fail(upath, f"footer missing links: {sorted(FOOTER_LINKS - footer)}")
+        # Internal links are relative and name index.html so pages navigate
+        # from file://; /404.html links absolutely (Pages serves it anywhere).
+        for href in page.anchors:
+            if href.startswith(SKIP_SCHEMES) or href.startswith(("http:", "https:", "#")):
+                continue
+            target = urldefrag(href)[0]
+            if upath == "/404.html":
+                if not target.startswith("/"):
+                    fail(upath, f"404 page links must be root-absolute: {href}")
+            elif target.startswith("/") or not target.endswith(".html"):
+                fail(upath, f"internal link must be relative and end in .html: {href}")
         is_entry = upath.startswith("/blog/") and upath != "/blog/"
         want_type = "article" if is_entry else "website"
         if page.meta.get("og:type") != want_type:
@@ -163,6 +200,12 @@ def main() -> int:
             pub = page.meta.get("article:published_time", "")
             if not pub or pub not in page.times:
                 fail(upath, "blog entry needs article:published_time matching a <time datetime>")
+            if not page.article_header_h1:
+                fail(upath, "blog entry needs an <article><header><h1> title")
+            if page.meta.get("author") != AUTHOR:
+                fail(upath, f'blog entry needs <meta name="author" content="{AUTHOR}">')
+            if page.meta.get("article:author") != AUTHOR_URL:
+                fail(upath, f"blog entry needs article:author {AUTHOR_URL}")
         # Collect references.
         for ref in page.refs:
             if ref.startswith(SKIP_SCHEMES):
@@ -201,7 +244,7 @@ def main() -> int:
     if blog_index is None:
         fail("/blog/", "blog index missing")
     else:
-        missing = entries - set(blog_index.refs)
+        missing = entries - {site_url("/blog/", r) for r in blog_index.refs}
         if missing:
             fail("/blog/", f"blog index missing entries {sorted(missing)}")
 

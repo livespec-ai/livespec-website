@@ -4,64 +4,100 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>livespec: specs and code in a feedback loop</title>
-    <meta name="description" content="livespec is an experimental work in progress by Chad Woolley: a living specification in a feedback loop with its implementation, and every quality dial turned toward 11.">
+    <meta name="description" content="livespec is an experimental &quot;dark&quot; software factory by Chad Woolley: a living specification in a feedback loop with its implementation, quality dials turned toward 11, and minimal human attention.">
     <link rel="canonical" href="https://livespec-ai.org/">
     <meta property="og:title" content="livespec: specs and code in a feedback loop">
-    <meta property="og:description" content="livespec is an experimental work in progress by Chad Woolley: a living specification in a feedback loop with its implementation, and every quality dial turned toward 11.">
+    <meta property="og:description" content="livespec is an experimental &quot;dark&quot; software factory by Chad Woolley: a living specification in a feedback loop with its implementation, quality dials turned toward 11, and minimal human attention.">
     <meta property="og:url" content="https://livespec-ai.org/">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script data-goatcounter="https://livespec-ai.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
   </head>
   <body>
     <noscript><img src="https://livespec-ai.goatcounter.com/count?p=/" alt="" width="1" height="1"></noscript>
     <div id="container">
       <div id="header">
-        <h1><a href="/">livespec</a></h1>
+        <h1><a href="index.html">livespec</a></h1>
       </div>
       <div id="content">
-        <h1>Hi, I'm Chad</h1>
+        <h1>What is livespec?</h1>
         <div class="prose">
-          <p>I'm Chad Woolley, known as <a href="https://github.com/thewoolleyman">thewoolleyman</a> pretty much everywhere. I've written software and run systems for more than 30 years, from mainframes to the cloud. livespec is what I'm building and learning from right now. There's more about me at <a href="https://thewoolleyweb.com/">thewoolleyweb.com</a>.</p>
+          <p>livespec is a <strong>"dark" software factory</strong>: AI agents turn a living, natural-language specification into a working implementation, with as little human involvement as possible. The lights are off because nobody needs to be on the factory floor. It's an <strong>experimental work in progress</strong>.</p>
+          <p>For the genesis of some of the ideas behind it, see my February 2026 article <a href="https://thewoolleyweb.com/software-factory-practitioners-guide.html">The Software Factory: A Practitioner's Guide</a>, which explores the earliest iterations of the "dark factory" approach.</p>
         </div>
 
-        <h1>Two goals</h1>
+        <h1>Blog</h1>
+        <h2><a href="blog/index.html">Read the blog</a></h2>
+        <p class="caption">The journey toward the goals below.</p>
+
+        <h1>Goals</h1>
         <div class="prose">
-          <p>livespec is an <strong>experimental work in progress</strong>. It explores two goals:</p>
+          <p>livespec explores three goals:</p>
           <h2 id="feedback-loop">1. A circular feedback loop between specification and implementation</h2>
-          <p>A living, natural-language specification drives the implementation. What building and running the implementation reveals (gaps, drift, surprises) flows back into the specification through a governed revision process, so the two never silently diverge.</p>
+          <p>A living, natural-language specification ("intent") drives the implementation (through identified "gaps" where the implementation does not match the specification). What building and running the implementation reveals (doesn't work, doesn't perform, isn't what we wanted) flows back into the specification through a governed revision process (identifying "drift" and "proposing changes" to the specification), so the two stay in sync in live, real-time.</p>
+          <p>The goal is a "living specification". Hence the name: "livespec".</p>
           <h2 id="quality-dials">2. Every quality dial turned as close to 11 as possible</h2>
-          <p>Fast, cheap, right: the old triangle says pick two. livespec asks how far "right" can be pushed (testing, review, verification, documentation) while still staying inside real cost and speed constraints.</p>
+          <p>Fast, cheap, right: the old triangle says pick two. livespec asks how far "right" can be pushed: Test-First development, code quality metrics, strict and detailed architecture standards, evals, definition-and-proof-of-done, code coverage, linting, fuzzing, mutation testing, etc, etc... All of these enforced as much as possible by mechanical, non-LLM mechanisms.  While balancing these goals against cost and speed constraints (token and infrastructure costs).</p>
+          <h2 id="minimal-attention">3. By relying on the previous goals, find the <em>minimal human attention</em> the factory needs</h2>
+          <p>How little human attention can the factory get while still producing usable, high-quality implementations? The goal is to:</p>
+          <ul>
+            <li>Interface primarily with AI surfaces.</li>
+            <li>Rarely, if ever, directly review code</li>
+            <li>Leverage AI as much as possible for authoring and review of the specification.</li>
+            <li>Primarily rely on review of the delivered, working implementation.</li>
+            <li>Rely on observability signals from every part of the factory and the implementation for guidance.</li>
+          </ul>
         </div>
 
-        <h1>Where things stand</h1>
+        <h1>Where things stand, and what I've learned</h1>
         <div class="prose">
-          <p>The project moves fast, so rather than restate it here, these links go straight to the sources of truth.</p>
+          <p>DISCLAIMER: As a result of following the goals above, the repos linked below consist of millions of lines of code and documentation which I have <em>NEVER LOOKED AT ONCE</em>. Around 5.5 million, as of November 2026.</p>
+          <p>My primary activity has been dogfooding the building of the factory itself, and all of the distributed (kubernetes/gitops) infrastructure to run it.</p>
+          <p>In the pursuit of Goal 3 above (minimal attention), I've gone through several different iterations of "AI management layers", as I've tried to zero in on approaches which:</p>
+
+          <ul>
+            <li>A) Keep working constantly, don't stall, and raise ONLY the right things for my attention</li>
+            <li>B) Actually produce working implementations, without spinning and thrashing and yak-shaving and burning tokens forever with nothing to show for it</li>
+          </ul>
+
+          <p>Hence the plethora of "supervisors", "overseers", "coordinators", "consoles", "cockpits", etc., scattered across the repos below.</p>
+          <p>However, as the system has grown and I've invested most heavily in Goals 2 and 3, the "cheap" and "fast" sides of the triangle suffered greatly as they tried to maintain the hard-enforced "right" quality standard, with minimal attention.</p>
+          <p>This, in turn has forced me to divert attention from Goal 1 in an attempt to stop the spend from spiraling out of control into the 3-figures-plus USD range on tokens and infra (now at well over a dozen machines running kubernetes worker nodes across the cloud and my homelab).</p>
+          <p>Which is, in itself, a very useful learning outcome from the experiment: This endeavour is <em>EXPENSIVE</em> and <em>RESOURCE INTENSIVE</em>.</p>
+          <p>If I had to summarize what I've learned in a sentence: The LLMs are getting better, very fast, but for the foreseeable future, they are polymath geniuses who have the memories of a fruit fly and are incapable of seeing the forest for the trees.</p>
         </div>
+
+        <h1>Links and stuff</h1>
+        <h2><a href="https://github.com/thewoolleyman/livespec/tree/master/SPECIFICATION">The specification</a></h2>
+        <p class="caption">livespec's own living spec, governed by livespec. There's several diagrams here, if you want visuals of how the system works (again, mostly unreviewed after initial generation, and probably badly rotted)</p>
+        <h2><a href="https://github.com/thewoolleyman/livespec/blob/master/docs/activity/livespec-governed-repo-activity.md">Activity</a></h2>
+        <p class="caption">Pull requests and lines changed across every livespec-governed repository.</p>
         <h2><a href="https://github.com/thewoolleyman/livespec">livespec core</a></h2>
         <p class="caption">The README: what livespec is, the spec/implementation lifecycle, and the operations.</p>
         <h2><a href="https://github.com/thewoolleyman/livespec/blob/master/docs/installation.md">Installation</a></h2>
-        <p class="caption">One paste-able agent prompt that sets livespec up on a project.</p>
-        <h2><a href="https://github.com/thewoolleyman/livespec/tree/master/SPECIFICATION">The specification</a></h2>
-        <p class="caption">livespec's own living spec, governed by livespec.</p>
+        <p class="caption">One paste-able agent prompt that sets livespec up on a project. It kind of works, but several bugs in the backlog for it. ;)</p>
         <h2><a href="https://github.com/thewoolleyman/livespec-driver-claude">Drivers</a></h2>
-        <p class="caption">Per-agent bindings: <a href="https://github.com/thewoolleyman/livespec-driver-claude">Claude Code</a>, <a href="https://github.com/thewoolleyman/livespec-driver-codex">Codex</a>, and <a href="https://github.com/thewoolleyman/livespec-driver-pi">pi</a>.</p>
+        <p class="caption">Per-agent bindings for LLM harnesses: <a href="https://github.com/thewoolleyman/livespec-driver-claude">Claude Code</a>, <a href="https://github.com/thewoolleyman/livespec-driver-codex">Codex</a>, and <a href="https://github.com/thewoolleyman/livespec-driver-pi">pi</a>.</p>
         <h2><a href="https://github.com/thewoolleyman/livespec-orchestrator-beads-fabro">Orchestrators</a></h2>
-        <p class="caption">Implementation-side work tracking: <a href="https://github.com/thewoolleyman/livespec-orchestrator-beads-fabro">Beads/Dolt + Fabro</a>, or zero-infrastructure <a href="https://github.com/thewoolleyman/livespec-orchestrator-git-jsonl">git + JSONL</a>.</p>
+        <p class="caption">Implementation-side work tracking: <a href="https://github.com/thewoolleyman/livespec-orchestrator-beads-fabro">Beads/Dolt + Fabro</a>, or zero-infrastructure <a href="https://github.com/thewoolleyman/livespec-orchestrator-git-jsonl">git + JSONL</a> (the git/JSONL is an incomplete reference implementation, not practical for actual factory work at scale. The main learning here is that you DO NOT WANT TO STORE YOUR TASK ACTIVITY LEDGER IN GIT).</p>
         <h2><a href="https://github.com/thewoolleyman/livespec-dev-tooling">Supporting tools</a></h2>
         <p class="caption"><a href="https://github.com/thewoolleyman/livespec-dev-tooling">dev-tooling</a>, <a href="https://github.com/thewoolleyman/livespec-runtime">runtime</a>, <a href="https://github.com/thewoolleyman/livespec-console-beads-fabro">console</a>, and <a href="https://github.com/thewoolleyman/livespec-overseer">overseer</a>.</p>
-        <h2><a href="https://github.com/thewoolleyman/livespec/blob/master/docs/activity/livespec-governed-repo-activity.md">Activity</a></h2>
-        <p class="caption">Pull requests and lines changed across every livespec-governed repository.</p>
         <h2><a href="https://github.com/livespec-ai/livespec-website/tree/main/SPECIFICATION">This website's spec</a></h2>
         <p class="caption">This site is governed by livespec too.</p>
 
-        <h1>Blog</h1>
-        <h2><a href="/blog/">Read the blog</a></h2>
-        <p class="caption">The journey toward the two goals.</p>
+        <h1>Who is responsible for this?</h1>
+        <div class="prose">
+          <p>I'm Chad Woolley, known as <a href="https://github.com/thewoolleyman">thewoolleyman</a> pretty much everywhere. Ex-GitLab, Ex-Pivotal, Ex-IBM, Open Source. Coder/hacker/sysadmin/ops for 40+ years. Apple II → mainframes → web developer since the web came out → agentic AI → ??? 🤔😳</p>
+          <p>After getting laid off at GitLab in June 2026 (the fourth "involuntary departure" of my career), I decided to take a hiatus to retool my knowledge and skills at the dawn of the Age of AI, and explore the limits of what is possible. livespec is the vehicle I chose.</p>
+          <p>I spent 4 decades learning to use my hands to efficiently craft beautiful and high-quality code and documentation, and I probably wrote around a half-million lines of it with those hands (and often, with a pair-programmer).</p>
+          <p>But now, that skill is as marketable as a wagon-wheelwright in the age of automobiles. However, I still have decades of valuable knowledge from my myriad failures, and I've learned from countless brilliant humans how to see the forest for the trees.</p>
+          <p>This makes me confident that I can find a way in this brave new world. I, for one, welcome my idiot savant robot overlords...</p>
+          <p>There's more about me at <a href="https://thewoolleyweb.com/">thewoolleyweb.com</a>.</p>
+        </div>
       </div>
       <div id="footer">
-        <a href="/">Home</a>
-        <a href="/blog/">Blog</a>
+        <a href="index.html">Home</a>
+        <a href="blog/index.html">Blog</a>
         <a href="https://github.com/thewoolleyman/livespec">livespec on GitHub</a>
         <a href="https://thewoolleyweb.com/">thewoolleyweb.com</a>
       </div>
