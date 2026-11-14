@@ -3,7 +3,26 @@
   "implementation": {
     "plugin": "livespec-orchestrator-beads-fabro"
   },
+  // livespec-FAMILY tenant: the family wrapper injects BEADS_DOLT_PASSWORD.
+  "credential_wrapper": ["/usr/local/bin/with-livespec-env.sh", "--"],
   "worktree_discipline": {
     "pack": "required"
+  },
+  "livespec-orchestrator-beads-fabro": {
+    "format": "beads",
+    "compat": {
+      "livespec": ">=0.1.0,<1.0.0",
+      "pinned": "v0.328.0"
+    },
+    "canonical_branch": "main",
+    "connection": {
+      "tenant": "livespec-website",
+      "prefix": "lsw",
+      "database": "livespec-website",
+      "server_user": "livespec-website",
+      "server_host": "127.0.0.1",
+      "server_port": 3307,
+      "fake": false
+    }
   }
 }
