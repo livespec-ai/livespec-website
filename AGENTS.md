@@ -19,10 +19,14 @@ Control), never by typing into each other's panes (maintainer ruling
 
 The spec is seeded (`SPECIFICATION/`, template `livespec-with-diagrams`).
 `.livespec.jsonc` selects `livespec-orchestrator-beads-fabro` with
-`worktree_discipline.pack: required`. The site lives in `site/` (pure HTML +
-`css/style.css`); `just check` (`scripts/check-site.py`) gates it locally via
-lefthook and in CI via `.github/workflows/pages.yml`, which also deploys
-`site/` to GitHub Pages on push to `main`. Factory dispatch (installation
+`worktree_discipline.pack: required`. The site lives in `site/` (static HTML +
+`css/style.css`). Every HTML page is rendered from a Markdown source in
+`content/` by `just render` (pandoc through `templates/page.html`); edit the
+Markdown, never the rendered HTML, and commit both. `just preview` renders and
+opens the homepage from the filesystem; `just watch` re-renders on change.
+`just check` (`scripts/check-site.py`) gates the site, including render drift,
+locally via lefthook and in CI via `.github/workflows/pages.yml`, which also
+deploys `site/` to GitHub Pages on push to `main`. Factory dispatch (installation
 Phase 6: GitHub App, credential wrapper, Fabro server) is deliberately
 deferred by the maintainer; implementation happens in-session through
 worktree PRs.
