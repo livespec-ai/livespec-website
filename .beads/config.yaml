@@ -1,0 +1,18 @@
+# Beads configuration for this repo's livespec-FAMILY tenant on the shared
+# dolt-server. Committable: no password, no socket key (TCP only — the dolt
+# socket dir is 0750 dolt:dolt). Mirrors the .livespec.jsonc
+# livespec-orchestrator-beads-fabro.connection block. The family password
+# (BEADS_DOLT_PASSWORD) is injected at run time by
+# /usr/local/bin/with-livespec-env.sh (the declared credential_wrapper).
+dolt.auto-start: false
+dolt.mode: server
+dolt.server-host: 127.0.0.1
+dolt.server-port: 3307
+dolt.server-user: livespec-website
+dolt.database: livespec-website
+dolt.prefix: lsw
+# Client auto-backup lane OFF (required by tenant onboarding): this tenant is
+# backed up server-side every hour by dolt-backup.service
+# (DOLT_BACKUP('sync','s3')). Tenant accounts are denied the global privilege
+# the client lane would need, by design — do not "fix" that with a grant.
+backup.enabled: false
