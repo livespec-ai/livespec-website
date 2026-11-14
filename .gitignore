@@ -143,3 +143,6 @@ pnpm-debug.log*
 .beads/proxieddb/
 /.beads/interactions.jsonl
 .render-stamp
+
+# Rendered pages: build output of `just render` (the deploy workflow renders them)
+/site/**/*.html

@@ -3,7 +3,9 @@
 Implements the render command in SPECIFICATION/non-functional-requirements.md:
 each Markdown source becomes the page at the same relative path under site/
 (.md -> .html), through the one shared template templates/page.html.
-check-site.py imports render_all() for the render-drift check.
+Rendered pages are gitignored build output: `just check` and the deploy
+workflow both render before using site/, and every render first removes
+the previously rendered pages so a deleted source leaves no stale page.
 
 Front matter keys: title (the <title> text), description, and, for blog
 entries, layout: article, heading and published (YYYY-MM-DD). The 404 page
@@ -106,7 +108,14 @@ def render_all(out_dir: Path) -> list[Path]:
     return pages
 
 
+def clean(out_dir: Path) -> None:
+    """Remove every previously rendered page; all HTML under site/ is rendered output."""
+    for page in out_dir.rglob("*.html"):
+        page.unlink()
+
+
 def main() -> int:
+    clean(SITE)
     pages = render_all(SITE)
     print(f"render: {len(pages)} pages rendered from content/ into site/")
     return 0

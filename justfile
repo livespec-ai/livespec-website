@@ -15,11 +15,11 @@ bootstrap:
 install-worktree-pack:
     uv run python -m livespec_dev_tooling.install_worktree_pack
 
-# Every check (the check-aggregate command in SPECIFICATION/non-functional-requirements.md).
-check:
+# Render, then run every check (the check-aggregate command in SPECIFICATION/non-functional-requirements.md).
+check: render
     uv run python scripts/check-site.py
 
-# Render every content/**/*.md source to its page under site/ with pandoc.
+# Render every content/**/*.md source to its page under site/ with pandoc (gitignored build output).
 render:
     uv run python scripts/render.py
 

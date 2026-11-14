@@ -23,11 +23,12 @@ The spec is seeded (`SPECIFICATION/`, template `livespec-with-diagrams`).
 `worktree_discipline.pack: required`. The site lives in `site/` (static HTML +
 `css/style.css`). Every HTML page is rendered from a Markdown source in
 `content/` by `just render` (pandoc through `templates/page.html`); edit the
-Markdown, never the rendered HTML, and commit both. `just preview` renders and
-opens the homepage from the filesystem; `just watch` re-renders on change.
-`just check` (`scripts/check-site.py`) gates the site, including render drift,
-locally via lefthook and in CI via `.github/workflows/pages.yml`, which also
-deploys `site/` to GitHub Pages on push to `main`. Factory dispatch (installation
+Markdown, never the rendered HTML. Rendered pages are gitignored build output:
+never commit them. `just preview` renders and opens the homepage from the
+filesystem; `just watch` re-renders on change. `just check` renders, then
+(`scripts/check-site.py`) gates the site locally via lefthook and in CI via
+`.github/workflows/pages.yml`, whose deploy job renders `site/` again and
+publishes it to GitHub Pages on every push to `main`. Factory dispatch (installation
 Phase 6: GitHub App, credential wrapper, Fabro server) is deliberately
 deferred by the maintainer; implementation happens in-session through
 worktree PRs.
@@ -58,9 +59,15 @@ hooks. The pack in `dev-tooling/` is materialized from the pinned
 
 ## Repository mutations
 
-After the initial setup commit, every tracked change happens in a dedicated
-git worktree and lands through a PR against `main`, never as a direct edit on
-the primary checkout. Never bypass a rejecting hook.
+After the initial setup commit, every tracked change an agent makes happens in
+a dedicated git worktree and lands through a PR against `main`, never as a
+direct edit on the primary checkout. Never bypass a rejecting hook.
+
+Maintainer exception (2026-11-14): the maintainer may commit directly to
+`main`, for example by editing a `content/` Markdown file in the GitHub web
+editor; that push is checked and deployed like any other. Agents never commit
+or push directly to `main`, even when acting on the maintainer's behalf. Expect
+maintainer commits on `main` you did not author: rebase onto them.
 
 ## Working style
 
