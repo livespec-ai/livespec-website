@@ -1,5 +1,5 @@
 ---
-title: "livespec: specs and code in a feedback loop"
+title: "livespec: specification and implementation in a living feedback loop"
 description: "livespec is an experimental \"dark\" software factory by Chad Woolley: a living specification in a feedback loop with its implementation, quality dials turned toward 11, and minimal human attention."
 ---
 
