@@ -33,8 +33,12 @@ observe.
 - Greyscale palette only; no colored hue anywhere on the site.
 - Font stack inherited from takahashi (`Verdana, Tahoma, Arial,
   sans-serif`); no web-font downloads.
-- Prose blocks are left-justified, normal weight, and constrained
-  to a maximum line length of about 75 characters.
+- Prose and article blocks MUST be start-aligned (never fully
+  justified), normal weight, with a line height of about 1.6 to
+  1.75 and a maximum line length of about 70 characters.
+- The blog article header MUST place title, byline, and body in
+  the same column; the byline MUST use a smaller size and a muted
+  grey that still meets WCAG 2.2 AA contrast.
 - Text and background colors MUST meet WCAG 2.2 AA contrast.
 
 ## Traffic metrics

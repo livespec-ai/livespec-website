@@ -1,7 +1,7 @@
 /* takahashi v1.0 (Jan 01, 2008) - An open source template by Chad Woolley - http://thewoolleyweb.com. Free to use for any purpose as long as the proper credits are given to the original author. */
 
 /* Adapted for livespec-ai.org: fixed minimum width removed, heading sizes
-   scale with the viewport, a left-justified prose style added, and grey
+   scale with the viewport, prose and blog-article styles added, and grey
    tones adjusted to meet WCAG 2.2 AA contrast. Greyscale only. */
 
 body {
@@ -79,8 +79,23 @@ padding: 0 10px 4px;
 font-weight: normal;
 letter-spacing: normal;
 margin: 0 auto 18px;
-max-width: 75ch;
+max-width: 70ch;
 padding: 0 16px;
+}
+
+/* Blog index: each entry (title, date, summary) is one link. */
+#content a.entry {
+display: block;
+padding: 4px 0;
+}
+
+#content a.entry .caption {
+font-weight: bold;
+}
+
+#content a.entry:hover h2,
+#content a.entry:hover .caption {
+text-decoration: underline;
 }
 
 /*** Prose: left-justified, normal weight, readable measure ***/
@@ -91,7 +106,7 @@ font-weight: normal;
 letter-spacing: normal;
 line-height: 1.6;
 margin: 0 auto;
-max-width: 75ch;
+max-width: 70ch;
 padding: 0 16px 16px;
 text-align: left;
 }
@@ -110,6 +125,90 @@ margin: 1.2em 0 0.4em;
 #content .prose .notice {
 border: 2px dashed #303030;
 padding: 8px 12px;
+}
+
+/*** Article: blog entry title, byline, and body in one readable column ***/
+
+#content .article {
+background: #FFFFFF;
+box-sizing: border-box;
+font-weight: normal;
+letter-spacing: normal;
+margin: 0 auto 10px;
+max-width: calc(70ch + 64px);
+padding: 32px 32px 24px;
+text-align: left;
+}
+
+#content .article header {
+border-bottom: 1px solid #C0C0C0;
+margin-bottom: 1.5em;
+padding-bottom: 1em;
+}
+
+#content .article h1 {
+background: none;
+font-size: clamp(1.7em, 5vw, 2.4em);
+letter-spacing: -0.01em;
+line-height: 1.2;
+margin: 0 0 0.4em;
+padding: 0;
+}
+
+#content .article .byline {
+color: #595959;
+font-size: 0.9em;
+margin: 0;
+}
+
+#content .article .byline a {
+color: #303030;
+}
+
+#content .article .body {
+font-size: 1.05em;
+line-height: 1.7;
+}
+
+#content .article .body p,
+#content .article .body ul,
+#content .article .body blockquote {
+margin: 0 0 1.1em;
+}
+
+#content .article .body h2 {
+font-size: 1.35em;
+line-height: 1.3;
+margin: 1.6em 0 0.5em;
+padding: 0;
+}
+
+#content .article .body a {
+text-decoration: underline;
+}
+
+#content .article .body blockquote {
+border-left: 4px solid #808080;
+color: #303030;
+font-style: italic;
+padding: 0 0 0 1em;
+}
+
+#content .article .notice {
+border: 2px dashed #303030;
+padding: 8px 12px;
+}
+
+#content .article footer {
+border-top: 1px solid #C0C0C0;
+font-size: 0.95em;
+padding-top: 1em;
+}
+
+@media (max-width: 480px) {
+#content .article {
+padding: 20px 16px 16px;
+}
 }
 
 /*** Footer ***/
