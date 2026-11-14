@@ -35,15 +35,20 @@ repository tooling live here.
   edited directly.
 - Spec changes flow through `/livespec:propose-change` →
   `/livespec:revise`.
-- Pages are hand-authored HTML; edits preserve the site's existing
-  markup conventions, relative structure, and published URLs.
+- Every HTML page under `site/` is rendered from a Markdown source
+  under `content/`; contributors edit the Markdown source, never the
+  rendered HTML directly. Edits preserve the site's existing markup
+  conventions, relative structure, and published URLs.
+  Site-specific markup MAY be written as raw HTML inside the
+  Markdown.
 
 ### Tooling and enforcement
 
 - Any scripting the project needs is expressed as `just` recipes
-  in the root `justfile`; ad-hoc scripts outside `just` are not
-  added. Scripting is kept minimal — the site itself needs none to
-  be served.
+  in the root `justfile`; helper scripts under `scripts/` are
+  invoked only through `just` recipes. Scripting is kept minimal —
+  the site itself needs none to be served; rendering runs only on
+  contributor machines and in the check job.
 - `just check` is the single check-aggregate command (see
   [Check-aggregate command](#check-aggregate-command)).
 
@@ -72,10 +77,36 @@ repository tooling live here.
 ### Contributor toolchain
 
 Tools are pinned in `.mise.toml` and run via `mise exec --`:
-`uv` (Python, for livespec dev-tooling only), `just`, and
-`lefthook`. Python dev dependencies (`livespec-dev-tooling`) are
-pinned in `pyproject.toml` / `uv.lock`. None of this toolchain is
-shipped to visitors.
+`uv` (Python, for livespec dev-tooling and the site checks),
+`just`, `lefthook`, and `pandoc` (Markdown rendering).
+`just bootstrap` MUST install every pinned tool. Python dev
+dependencies (`livespec-dev-tooling`) are pinned in
+`pyproject.toml` / `uv.lock`. None of this toolchain is shipped to
+visitors.
+
+### Render, preview, and watch commands
+
+- `just render` MUST render every `content/**/*.md` source to its
+  page under `site/` with pandoc (GitHub-flavored Markdown input
+  with YAML front matter and explicit heading attributes, without
+  automatic heading identifiers; HTML5 output) and the one shared
+  template `templates/page.html`. Per-page metadata (title,
+  description, canonical path, Open Graph type, dates, GoatCounter
+  path) comes from the source's YAML front matter. The template's
+  internal links and stylesheet link MUST be computed per page so
+  they take the form contracts.md §"URL surface" requires: the
+  shortest relative path on every page, root-absolute on
+  `/404.html`.
+- `just preview` MUST run `just render`, print the `file://` URL
+  of `site/index.html`, and open it with the platform opener
+  (`open` on macOS, `xdg-open` on Linux).
+- `just watch` MUST run `just render`, then poll `content/` and
+  `templates/` about once per second and re-run `just render`
+  whenever a file there changes, until interrupted. It MUST need
+  nothing beyond the pinned toolchain and the POSIX shell
+  utilities present on macOS and Ubuntu.
+- No HTTP server is part of the contributor toolchain; local
+  review opens rendered pages from the filesystem.
 
 ### Check-aggregate command
 
@@ -90,6 +121,12 @@ shipped to visitors.
 3. **Page contract check** — every page carries the metadata
    required by `contracts.md` §"Per-page HTML contract", and
    `sitemap.xml` lists exactly the published pages.
+4. **Render-drift check** — every Markdown source under
+   `content/` is rendered to a temporary location and compared
+   with its committed page under `site/`, ignoring whitespace-only
+   differences. Any other difference, a Markdown source without a
+   committed page, or an HTML page under `site/` without a
+   Markdown source MUST fail and name the page.
 
 ### Publishing
 
@@ -97,8 +134,11 @@ shipped to visitors.
   `site/` is deployed. Repository tooling, `SPECIFICATION/`, and
   `dev-tooling/` are never published.
 - A GitHub Actions workflow deploys `site/` to GitHub Pages on
-  every push to `main` (Pages source: GitHub Actions), with no
-  build step beyond uploading the directory.
+  every push to `main` (Pages source: GitHub Actions). The deploy
+  uploads the committed `site/` directory as-is and MUST NOT
+  render pages. The workflow's check job installs the pinned
+  toolchain (including pandoc) through mise and runs `just check`,
+  including the render-drift check, before the deploy job runs.
 - `site/CNAME` contains `livespec-ai.org`, and the Pages custom
   domain is set to `livespec-ai.org` with HTTPS enforced.
 
@@ -110,8 +150,10 @@ shipped to visitors.
 |---|---|
 | `site/` | Everything published: HTML, `css/`, `robots.txt`, `sitemap.xml`, `CNAME`, `404.html`, `.nojekyll` |
 | `site/blog/<slug>/index.html` | One blog entry |
+| `content/` | Markdown sources, one per HTML page under `site/` (never published) |
+| `templates/page.html` | The one shared pandoc page template (never published) |
 | `SPECIFICATION/` | The livespec specification |
-| `justfile`, `lefthook.yml`, `.mise.toml`, `pyproject.toml` | Contributor tooling |
+| `justfile`, `lefthook.yml`, `.mise.toml`, `pyproject.toml`, `scripts/` | Contributor tooling |
 
 `site/.nojekyll` MUST exist so GitHub Pages serves files verbatim.
 
@@ -162,3 +204,39 @@ Given a page under `site/` links to a path that does not exist under `site/`
 When a contributor runs `just check`
 
 Then the check fails and names the referring page and the broken URL
+
+### Scenario: An edited page that was not re-rendered blocks the change
+
+Given a Markdown source under `content/` has been edited
+
+And its committed page under `site/` was not re-rendered
+
+When a contributor runs `just check`
+
+Then the check fails and names the page whose rendered HTML differs from its committed HTML
+
+### Scenario: Whitespace-only differences do not block the change
+
+Given a committed page under `site/` differs from its rendered Markdown source only in whitespace
+
+When a contributor runs `just check`
+
+Then the render-drift check passes for that page
+
+### Scenario: A contributor previews the rendered site locally
+
+Given a contributor has edited a Markdown source under `content/`
+
+When the contributor runs `just preview`
+
+Then every page is re-rendered under `site/`
+
+And the `file://` URL of `site/index.html` is printed and opened in the platform's default browser without starting an HTTP server
+
+### Scenario: Watching re-renders a page when its source changes
+
+Given a contributor is running `just watch`
+
+When the contributor saves a change to a Markdown source under `content/` or to `templates/page.html`
+
+Then within 3 seconds every affected page under `site/` is re-rendered from the saved files

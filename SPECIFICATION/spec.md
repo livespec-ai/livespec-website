@@ -24,10 +24,12 @@ livespec is presented as a **"dark" software factory** and an
 
 ## Architecture
 
-The site is a set of hand-authored static HTML pages plus one
-shared stylesheet, served by GitHub Pages behind Cloudflare. There
-is no build step, no client-side framework, and no server-side
-code.
+The site is a set of static HTML pages plus one shared
+stylesheet, served by GitHub Pages behind Cloudflare. Each page is
+authored as Markdown and rendered to HTML with pandoc through one
+shared page template; the rendered HTML is committed under `site/`
+and is what visitors receive. There is no deploy-time build step,
+no client-side framework, and no server-side code.
 
 ```mermaid
 flowchart LR
@@ -129,8 +131,10 @@ After merge:
 
 ## Non-goals
 
-- No JavaScript framework, bundler, transpiler, or static-site
-  generator.
+- No JavaScript framework, bundler, or transpiler, and no
+  static-site generator beyond pandoc rendering each Markdown page
+  through the one shared page template, run before commit rather
+  than at deploy time.
 - No user accounts, comments, search, or server-side code.
 - No duplication of livespec documentation already maintained in
   the livespec repositories.

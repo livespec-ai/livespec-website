@@ -39,6 +39,11 @@ observe.
 - The blog article header MUST place title, byline, and body in
   the same column; the byline MUST use a smaller size and a muted
   grey that still meets WCAG 2.2 AA contrast.
+- Tables, code blocks, inline code, and blockquotes inside prose
+  MUST be styled by `/css/style.css` in the greyscale palette, with
+  text meeting WCAG 2.2 AA contrast, and MUST NOT cause horizontal
+  page scrolling at 360 px width (wide tables and code blocks
+  scroll within their own box).
 - Text and background colors MUST meet WCAG 2.2 AA contrast.
 
 ## Traffic metrics
