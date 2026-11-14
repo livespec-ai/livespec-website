@@ -27,6 +27,14 @@ Phase 6: GitHub App, credential wrapper, Fabro server) is deliberately
 deferred by the maintainer; implementation happens in-session through
 worktree PRs.
 
+## Beads ledger
+
+Work items live in the `livespec-website` family tenant (prefix `lsw`) on the
+shared Dolt server. On a fresh clone, run `mise exec -- just beads-setup` once
+(needs the Dolt tunnel on 127.0.0.1:3307 and `/usr/local/bin/with-livespec-env.sh`);
+it regenerates the gitignored `.beads/metadata.json`. Run `bd` through the
+wrapper: `/usr/local/bin/with-livespec-env.sh -- bd list`.
+
 ## Spec lifecycle
 
 Once seeded, the specification is the source of truth. Change it only through
