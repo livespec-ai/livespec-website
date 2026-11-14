@@ -7,8 +7,8 @@ check-site.py imports render_all() for the render-drift check.
 
 Front matter keys: title (the <title> text), description, and, for blog
 entries, layout: article, heading and published (YYYY-MM-DD). The 404 page
-sets root_absolute: true so its links are root-absolute (contracts.md
-§"URL surface"); every other page links by the shortest relative path.
+sets root_absolute: true so its links are root-absolute (SPECIFICATION/contracts.md,
+URL surface); every other page links by the shortest relative path.
 """
 
 from __future__ import annotations
