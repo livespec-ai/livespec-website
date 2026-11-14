@@ -1,4 +1,4 @@
-# livespec-ai.com — scenarios
+# livespec-ai.org — scenarios
 
 Acceptance scenarios in Gherkin form. Each Gherkin keyword line is
 preceded and followed by a blank line so that every step renders as
@@ -6,7 +6,7 @@ its own Markdown paragraph under GitHub-Flavored Markdown.
 
 ## Scenario: Visitor reads the homepage
 
-Given a visitor opens `https://livespec-ai.com/`
+Given a visitor opens `https://livespec-ai.org/`
 
 When the page loads
 
@@ -30,7 +30,7 @@ Then the visitor arrives at that documentation in the `thewoolleyman/livespec` G
 
 ## Scenario: Visitor browses the blog
 
-Given a visitor opens `https://livespec-ai.com/blog/`
+Given a visitor opens `https://livespec-ai.org/blog/`
 
 When the page loads
 
@@ -62,15 +62,15 @@ Then all content and navigation work
 
 ## Scenario: Visitor uses the www or http address
 
-Given a visitor requests `http://www.livespec-ai.com/blog/`
+Given a visitor requests `http://www.livespec-ai.org/blog/`
 
 When the request completes
 
-Then the visitor lands on `https://livespec-ai.com/blog/`
+Then the visitor lands on `https://livespec-ai.org/blog/`
 
 ## Scenario: Search engine indexes the site
 
-Given a crawler fetches `https://livespec-ai.com/robots.txt`
+Given a crawler fetches `https://livespec-ai.org/robots.txt`
 
 When the crawler follows the referenced sitemap
 

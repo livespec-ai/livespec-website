@@ -1,8 +1,8 @@
-# livespec-ai.com — the livespec project website
+# livespec-ai.org — the livespec project website
 
 ## Project intent
 
-`livespec-ai.com` is a minimal, pure-HTML public website for the
+`livespec-ai.org` is a minimal, pure-HTML public website for the
 livespec project, authored by Chad Woolley ("thewoolleyman"). It
 introduces the author, states the project's goals, summarizes the
 project's current high-level state by linking out to the livespec
@@ -29,7 +29,7 @@ code.
 
 ```mermaid
 flowchart LR
-    visitor[Visitor browser] -->|HTTPS| cf[Cloudflare proxy<br/>livespec-ai.com]
+    visitor[Visitor browser] -->|HTTPS| cf[Cloudflare proxy<br/>livespec-ai.org]
     cf --> pages[GitHub Pages]
     repo[livespec-ai/livespec-website<br/>site/ directory] -->|deploy on push to main| pages
     home[Homepage] -.links to.-> gh[livespec repos on GitHub<br/>READMEs, docs, SPECIFICATIONs]
@@ -117,7 +117,7 @@ Before merge:
 
 After merge:
 
-- The change MUST be verified live on `https://livespec-ai.com/`
+- The change MUST be verified live on `https://livespec-ai.org/`
   per [non-functional-requirements.md](non-functional-requirements.md#contributor-workflow).
   A change is not done until that verification succeeds.
 

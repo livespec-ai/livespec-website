@@ -1,4 +1,4 @@
-# livespec-ai.com — constraints
+# livespec-ai.org — constraints
 
 Architecture-level constraints whose violation a visitor could
 observe.
@@ -19,7 +19,7 @@ observe.
 
 ## Hosting and domain
 
-- The site is served at the apex domain `livespec-ai.com` over
+- The site is served at the apex domain `livespec-ai.org` over
   HTTPS only.
 - Cloudflare proxies the domain in front of GitHub Pages, matching
   the existing `thewoolleyweb.com` arrangement.
@@ -42,7 +42,7 @@ observe.
 - Every HTML page MUST carry the site's traffic-metrics tag so
   page views are recorded.
 - The provider is GoatCounter (`goatcounter.com`), using the
-  site code dedicated to `livespec-ai.com`.
+  site code dedicated to `livespec-ai.org`.
 - The tag is GoatCounter's `count.js` script, loaded with `async`
   so it MUST NOT block rendering, plus a `<noscript>` GoatCounter
   pixel image so visits with JavaScript disabled are still counted.
@@ -53,7 +53,7 @@ observe.
 - Every page carries the SEO metadata in
   [contracts.md](contracts.md#per-page-html-contract).
 - `/robots.txt` allows all crawlers and references
-  `https://livespec-ai.com/sitemap.xml`.
+  `https://livespec-ai.org/sitemap.xml`.
 - The domain is verified in Google Search Console and the sitemap
   is submitted there.
 

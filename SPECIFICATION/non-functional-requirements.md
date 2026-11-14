@@ -1,4 +1,4 @@
-# livespec-ai.com — non-functional requirements
+# livespec-ai.org — non-functional requirements
 
 This document MUST be read alongside `spec.md`, `contracts.md`,
 `constraints.md`, and `scenarios.md`. It enumerates how the site is
@@ -63,7 +63,7 @@ repository tooling live here.
 - Every website change is carried through to verified live
   publication: merge, confirm the deploy run for that exact commit
   succeeded, then fetch each changed public URL on
-  `https://livespec-ai.com/` and confirm the change is live.
+  `https://livespec-ai.org/` and confirm the change is live.
   Cloudflare may rewrite email links and inject scripts at the
   edge; live verification accounts for that.
 
@@ -99,8 +99,8 @@ shipped to visitors.
 - A GitHub Actions workflow deploys `site/` to GitHub Pages on
   every push to `main` (Pages source: GitHub Actions), with no
   build step beyond uploading the directory.
-- `site/CNAME` contains `livespec-ai.com`, and the Pages custom
-  domain is set to `livespec-ai.com` with HTTPS enforced.
+- `site/CNAME` contains `livespec-ai.org`, and the Pages custom
+  domain is set to `livespec-ai.org` with HTTPS enforced.
 
 ## Constraints
 
@@ -119,7 +119,7 @@ shipped to visitors.
 
 Mirrors the existing `thewoolleyweb.com` setup:
 
-- The `livespec-ai.com` zone is on Cloudflare.
+- The `livespec-ai.org` zone is on Cloudflare.
 - The apex and `www` records point at GitHub Pages and are
   proxied through Cloudflare.
 - Cloudflare SSL/TLS mode is Full (strict); "Always Use HTTPS" is
@@ -128,12 +128,12 @@ Mirrors the existing `thewoolleyweb.com` setup:
 
 ### Traffic metrics and search console
 
-- A GoatCounter site exists for `livespec-ai.com`; its site code
+- A GoatCounter site exists for `livespec-ai.org`; its site code
   is the one embedded in pages' count script and pixel URLs. The
   site code is public, not a secret.
-- `livespec-ai.com` is verified as a Google Search Console
+- `livespec-ai.org` is verified as a Google Search Console
   property (DNS TXT verification through Cloudflare), and
-  `https://livespec-ai.com/sitemap.xml` is submitted.
+  `https://livespec-ai.org/sitemap.xml` is submitted.
 
 ### Styling source
 
@@ -153,7 +153,7 @@ When the pull request is merged to `main`
 
 Then the GitHub Actions deploy run for that merge commit succeeds
 
-And fetching the changed page on `https://livespec-ai.com/` returns the new content
+And fetching the changed page on `https://livespec-ai.org/` returns the new content
 
 ### Scenario: A broken internal link blocks the change
 
