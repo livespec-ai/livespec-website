@@ -47,6 +47,13 @@ After the initial setup commit, every tracked change happens in a dedicated
 git worktree and lands through a PR against `main`, never as a direct edit on
 the primary checkout. Never bypass a rejecting hook.
 
+## PR process
+
+Read [`.ai/pr-process.md`](.ai/pr-process.md) before opening or landing a PR.
+In short: merge PRs automatically, without asking, once CI passes (rebase
+merge, delete the branch); never merge on red. Until a CI workflow exists, a
+PR with no checks counts as passing once the local hooks pass.
+
 ## Secrets
 
 Never read, print, or commit secret values. Credentials are injected at run
