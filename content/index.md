@@ -51,9 +51,9 @@ How little human attention can the factory get while still producing usable, hig
 
 <div class="prose">
 
-DISCLAIMER: As a result of following the goals above, the repos linked below consist of millions of lines of code and documentation which I have *NEVER LOOKED AT ONCE*. Around 5.5 million, as of November 2026.
+DISCLAIMER: As a result of following the goals above, the repos linked below consist of millions of lines of code and documentation. As of November 2026, about 3.2 million lines, and 5.5 total lines modified. 99.9% (repeating) of these lines I have *NEVER LOOKED AT ONCE*.
 
-My primary activity has been dogfooding the building of the factory itself, and all of the distributed (kubernetes/gitops) infrastructure to run it.
+My primary activity has been dogfooding the building of the factory itself, and all of the distributed (kubernetes/gitops) infrastructure to run it, plus a few small "real" projects.
 
 In the pursuit of Goal 3 above (minimal attention), I've gone through several different iterations of "AI management layers", as I've tried to zero in on approaches which:
 
@@ -62,9 +62,11 @@ In the pursuit of Goal 3 above (minimal attention), I've gone through several di
 
 Hence the plethora of "supervisors", "overseers", "coordinators", "consoles", "cockpits", etc., scattered across the repos below.
 
-However, as the system has grown and I've invested most heavily in Goals 2 and 3, the "cheap" and "fast" sides of the triangle suffered greatly as they tried to maintain the hard-enforced "right" quality standard, with minimal attention.
+I've also explored how to automate the enforcement of Goal 1. For example, requiring Gherkin Use-Case "GIVEN-WHEN-THEN" style scenarios in the specification for all new features (example from the livespec's own [SPECIFICATION/scenarios.md](https://github.com/thewoolleyman/livespec/blob/master/SPECIFICATION/scenarios.md)). Then I mechanically require that each scenario have at least one associated E2E top-of-the-testing-pyramid test, and require that all work items have Definition-of-Done requirements, which are in turn required to be anchored to a scenario in the specification.
 
-This, in turn has forced me to divert attention from Goal 1 in an attempt to stop the spend from spiraling out of control into the 3-figures-plus USD range on tokens and infra (now at well over a dozen machines running kubernetes worker nodes across the cloud and my homelab).
+However, as the system has grown and I've invested most heavily in Goals 2 and 3, and automation of Goal 1, the "cheap" and "fast" sides of the triangle suffered greatly as they tried to maintain the hard-enforced "right" quality standard, with minimal attention. I have also leaned into 
+
+This, in turn has forced me to divert attention the from Goal 1 in an attempt to stop the spend from spiraling out of control into the 4-figures-plus-monthly $USD range on tokens and infra (now at well over a dozen machines running kubernetes worker nodes across the cloud and my homelab).
 
 Which is, in itself, a very useful learning outcome from the experiment: This endeavour is *EXPENSIVE* and *RESOURCE INTENSIVE*.
 
