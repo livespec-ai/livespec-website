@@ -4,6 +4,17 @@ This repository holds the livespec website. It is governed by livespec: a
 living natural-language specification drives the implementation. The active
 implementation plugin is `livespec-orchestrator-beads-fabro`.
 
+## Messaging other agent sessions
+
+Read the fleet's distributed SendMessage protocol
+(<https://github.com/thewoolleyman/livespec-dev-tooling/blob/master/.ai/distributed-sendmessage-protocol.md>)
+before messaging, asking, directing or answering another agent session on any
+host, and before running `herdr pane send-text`, `herdr pane run`,
+`herdr agent prompt` or `tmux send-keys` against a pane you did not create.
+Claude sessions talk through `SendMessage` (across machines via Remote
+Control), never by typing into each other's panes (maintainer ruling
+2026-11-14).
+
 ## Current state
 
 livespec plugins are installed at project scope (`.claude/settings.json`,
