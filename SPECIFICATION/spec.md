@@ -27,15 +27,17 @@ livespec is presented as a **"dark" software factory** and an
 The site is a set of static HTML pages plus one shared
 stylesheet, served by GitHub Pages behind Cloudflare. Each page is
 authored as Markdown and rendered to HTML with pandoc through one
-shared page template; the rendered HTML is committed under `site/`
-and is what visitors receive. There is no deploy-time build step,
-no client-side framework, and no server-side code.
+shared page template. The deploy workflow renders the pages from
+the Markdown sources on every push to `main`, and the rendered HTML
+under `site/` is what visitors receive; it is a build output and
+MUST NOT be committed. There is no client-side framework and no
+server-side code.
 
 ```mermaid
 flowchart LR
     visitor[Visitor browser] -->|HTTPS| cf[Cloudflare proxy<br/>livespec-ai.org]
     cf --> pages[GitHub Pages]
-    repo[livespec-ai/livespec-website<br/>site/ directory] -->|deploy on push to main| pages
+    repo[livespec-ai/livespec-website<br/>content/ + site/ assets] -->|render + deploy on push to main| pages
     home[Homepage] -.links to.-> gh[livespec repos on GitHub<br/>READMEs, docs, SPECIFICATIONs]
 ```
 
@@ -133,8 +135,8 @@ After merge:
 
 - No JavaScript framework, bundler, or transpiler, and no
   static-site generator beyond pandoc rendering each Markdown page
-  through the one shared page template, run before commit rather
-  than at deploy time.
+  through the one shared page template, run by the deploy workflow
+  and on contributor machines for local preview.
 - No user accounts, comments, search, or server-side code.
 - No duplication of livespec documentation already maintained in
   the livespec repositories.

@@ -29,10 +29,14 @@ repository tooling live here.
 
 ### Development discipline
 
-- Every change to a tracked file is made in an isolated git
-  worktree (`just worktree-create <branch>`) and lands through a
-  pull request against `main`; the primary checkout is never
-  edited directly.
+- Every change an agent makes to a tracked file is made in an
+  isolated git worktree (`just worktree-create <branch>`) and lands
+  through a pull request against `main`; the primary checkout is
+  never edited directly. Maintainer exception: the maintainer MAY
+  commit directly to `main` (for example by editing a file in the
+  GitHub web editor), and such a commit is checked and deployed
+  like any other push to `main`. Agents MUST NOT commit or push
+  directly to `main`, even when acting on the maintainer's behalf.
 - Spec changes flow through `/livespec:propose-change` →
   `/livespec:revise`.
 - Every HTML page under `site/` is rendered from a Markdown source
@@ -40,7 +44,10 @@ repository tooling live here.
   rendered HTML directly. Edits preserve the site's existing markup
   conventions, relative structure, and published URLs.
   Site-specific markup MAY be written as raw HTML inside the
-  Markdown.
+  Markdown. Rendered HTML pages under `site/` are build output: they
+  MUST be gitignored and MUST NOT be committed. Static assets under
+  `site/` (`css/`, `CNAME`, `robots.txt`, `sitemap.xml`,
+  `.nojekyll`) stay committed.
 
 ### Tooling and enforcement
 
@@ -48,7 +55,7 @@ repository tooling live here.
   in the root `justfile`; helper scripts under `scripts/` are
   invoked only through `just` recipes. Scripting is kept minimal —
   the site itself needs none to be served; rendering runs only on
-  contributor machines and in the check job.
+  contributor machines and in the GitHub Actions workflow.
 - `just check` is the single check-aggregate command (see
   [Check-aggregate command](#check-aggregate-command)).
 
@@ -96,7 +103,9 @@ visitors.
   internal links and stylesheet link MUST be computed per page so
   they take the form contracts.md §"URL surface" requires: the
   shortest relative path on every page, root-absolute on
-  `/404.html`.
+  `/404.html`. Before rendering, `just render` MUST remove every
+  previously rendered HTML page under `site/`, so a deleted or
+  renamed source leaves no stale page.
 - `just preview` MUST run `just render`, print the `file://` URL
   of `site/index.html`, and open it with the platform opener
   (`open` on macOS, `xdg-open` on Linux).
@@ -110,7 +119,9 @@ visitors.
 
 ### Check-aggregate command
 
-`just check` runs, at minimum:
+`just check` MUST first run `just render`, so it checks exactly the
+pages a deploy of the same commit would publish, then runs, at
+minimum:
 
 1. **HTML validity** — every page under `site/` is valid HTML5.
 2. **Site-wide link check** — every internal link, stylesheet, and
@@ -121,12 +132,6 @@ visitors.
 3. **Page contract check** — every page carries the metadata
    required by `contracts.md` §"Per-page HTML contract", and
    `sitemap.xml` lists exactly the published pages.
-4. **Render-drift check** — every Markdown source under
-   `content/` is rendered to a temporary location and compared
-   with its committed page under `site/`, ignoring whitespace-only
-   differences. Any other difference, a Markdown source without a
-   committed page, or an HTML page under `site/` without a
-   Markdown source MUST fail and name the page.
 
 ### Publishing
 
@@ -134,11 +139,12 @@ visitors.
   `site/` is deployed. Repository tooling, `SPECIFICATION/`, and
   `dev-tooling/` are never published.
 - A GitHub Actions workflow deploys `site/` to GitHub Pages on
-  every push to `main` (Pages source: GitHub Actions). The deploy
-  uploads the committed `site/` directory as-is and MUST NOT
-  render pages. The workflow's check job installs the pinned
-  toolchain (including pandoc) through mise and runs `just check`,
-  including the render-drift check, before the deploy job runs.
+  every push to `main` (Pages source: GitHub Actions). The
+  workflow's check job installs the pinned toolchain (including
+  pandoc) through mise and runs `just check`; a failing check MUST
+  block the deploy job. The deploy job MUST install the same pinned
+  toolchain through mise and run `just render` on the pushed commit
+  before uploading `site/`.
 - `site/CNAME` contains `livespec-ai.org`, and the Pages custom
   domain is set to `livespec-ai.org` with HTTPS enforced.
 
@@ -148,9 +154,9 @@ visitors.
 
 | Path | Purpose |
 |---|---|
-| `site/` | Everything published: HTML, `css/`, `robots.txt`, `sitemap.xml`, `CNAME`, `404.html`, `.nojekyll` |
-| `site/blog/<slug>/index.html` | One blog entry |
-| `content/` | Markdown sources, one per HTML page under `site/` (never published) |
+| `site/` | Everything published: rendered HTML (build output, gitignored), and committed `css/`, `robots.txt`, `sitemap.xml`, `CNAME`, `.nojekyll` |
+| `site/blog/<slug>/index.html` | One rendered blog entry (from `content/blog/<slug>/index.md`) |
+| `content/` | Markdown sources, one per rendered HTML page under `site/` (never published) |
 | `templates/page.html` | The one shared pandoc page template (never published) |
 | `SPECIFICATION/` | The livespec specification |
 | `justfile`, `lefthook.yml`, `.mise.toml`, `pyproject.toml`, `scripts/` | Contributor tooling |
@@ -187,7 +193,7 @@ removes the fixed minimum width and adds the prose style.
 
 ### Scenario: A merged change is published and verified live
 
-Given a pull request that changes a page under `site/`
+Given a pull request that changes a Markdown source under `content/` or a file under `site/`
 
 And `just check` passes
 
@@ -205,23 +211,47 @@ When a contributor runs `just check`
 
 Then the check fails and names the referring page and the broken URL
 
-### Scenario: An edited page that was not re-rendered blocks the change
+### Scenario: Checking renders the pages first
 
-Given a Markdown source under `content/` has been edited
-
-And its committed page under `site/` was not re-rendered
+Given a Markdown source under `content/` has been edited and `just render` has not been run
 
 When a contributor runs `just check`
 
-Then the check fails and names the page whose rendered HTML differs from its committed HTML
+Then the pages are rendered from the edited source before any check runs
 
-### Scenario: Whitespace-only differences do not block the change
+And the checks report on the newly rendered pages
 
-Given a committed page under `site/` differs from its rendered Markdown source only in whitespace
+### Scenario: A deleted source leaves no stale page
 
-When a contributor runs `just check`
+Given a Markdown source under `content/` was rendered and then deleted
 
-Then the render-drift check passes for that page
+When a contributor runs `just render`
+
+Then no HTML page for the deleted source remains under `site/`
+
+### Scenario: The maintainer's direct content edit goes live
+
+Given the maintainer edits a Markdown source under `content/` in the GitHub web editor
+
+And commits the edit directly to `main`
+
+When the GitHub Actions workflow runs for that commit
+
+Then the check job renders and checks the pages and passes
+
+And the deploy job renders the pages and publishes them
+
+And fetching the edited page on `https://livespec-ai.org/` returns the new content
+
+### Scenario: A direct edit that fails a check is not published
+
+Given the maintainer commits directly to `main` a Markdown source edit that breaks an internal link
+
+When the GitHub Actions workflow runs for that commit
+
+Then the check job fails and names the referring page and the broken URL
+
+And the deploy job does not run, so the live site is unchanged
 
 ### Scenario: A contributor previews the rendered site locally
 

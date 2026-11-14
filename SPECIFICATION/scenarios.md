@@ -72,7 +72,7 @@ Then the visitor lands on `https://livespec-ai.org/blog/`
 
 ## Scenario: Maintainer reviews the site from the filesystem
 
-Given a maintainer opens `site/index.html` from a local checkout via a `file://` URL
+Given a maintainer has run `just render` in a local checkout and opens `site/index.html` via a `file://` URL
 
 When the page loads and the maintainer follows the header, body, and footer links
 
