@@ -21,3 +21,9 @@ check:
 # Serve site/ locally at http://127.0.0.1:8000/ for a visual check.
 serve:
     python3 -m http.server 8000 --bind 127.0.0.1 --directory site
+
+# Set up the beads ledger on a fresh clone: regenerate the gitignored
+# .beads/metadata.json from .beads/config.yaml plus the tenant's project_id.
+# Needs the Dolt tunnel on 127.0.0.1:3307 and the family credential wrapper.
+beads-setup:
+    python3 scripts/beads-setup.py
