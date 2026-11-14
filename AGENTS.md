@@ -17,13 +17,15 @@ Control), never by typing into each other's panes (maintainer ruling
 
 ## Current state
 
-The spec is seeded (`SPECIFICATION/`, template `livespec-with-diagrams`,
-currently v003) and `.livespec.jsonc` selects
-`livespec-orchestrator-beads-fabro` with `worktree_discipline.pack: required`.
-The site itself (`site/`) is not built yet. The beads work-items store,
-credential wrapper, GitHub App, and Fabro server (installation Phase 6) are not
-provisioned yet, so `capture-as-work-item` and `capture-impl-gaps` cannot run
-until they are.
+The spec is seeded (`SPECIFICATION/`, template `livespec-with-diagrams`).
+`.livespec.jsonc` selects `livespec-orchestrator-beads-fabro` with
+`worktree_discipline.pack: required`. The site lives in `site/` (pure HTML +
+`css/style.css`); `just check` (`scripts/check-site.py`) gates it locally via
+lefthook and in CI via `.github/workflows/pages.yml`, which also deploys
+`site/` to GitHub Pages on push to `main`. Factory dispatch (installation
+Phase 6: GitHub App, credential wrapper, Fabro server) is deliberately
+deferred by the maintainer; implementation happens in-session through
+worktree PRs.
 
 ## Spec lifecycle
 

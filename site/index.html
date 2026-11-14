@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>livespec: specs and code in a feedback loop</title>
+    <meta name="description" content="livespec is an experimental work in progress by Chad Woolley: a living specification in a feedback loop with its implementation, and every quality dial turned toward 11.">
+    <link rel="canonical" href="https://livespec-ai.org/">
+    <meta property="og:title" content="livespec: specs and code in a feedback loop">
+    <meta property="og:description" content="livespec is an experimental work in progress by Chad Woolley: a living specification in a feedback loop with its implementation, and every quality dial turned toward 11.">
+    <meta property="og:url" content="https://livespec-ai.org/">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="/css/style.css">
+    <script data-goatcounter="https://livespec-ai.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+  </head>
+  <body>
+    <noscript><img src="https://livespec-ai.goatcounter.com/count?p=/" alt="" width="1" height="1"></noscript>
+    <div id="container">
+      <div id="header">
+        <h1><a href="/">livespec</a></h1>
+      </div>
+      <div id="content">
+        <h1>Hi, I'm Chad</h1>
+        <div class="prose">
+          <p>I'm Chad Woolley, known as <a href="https://github.com/thewoolleyman">thewoolleyman</a> pretty much everywhere. I've written software and run systems for more than 30 years, from mainframes to the cloud. livespec is what I'm building and learning from right now. There's more about me at <a href="https://thewoolleyweb.com/">thewoolleyweb.com</a>.</p>
+        </div>
+
+        <h1>Two goals</h1>
+        <div class="prose">
+          <p>livespec is an <strong>experimental work in progress</strong>. It explores two goals:</p>
+          <h2 id="feedback-loop">1. A circular feedback loop between specification and implementation</h2>
+          <p>A living, natural-language specification drives the implementation. What building and running the implementation reveals (gaps, drift, surprises) flows back into the specification through a governed revision process, so the two never silently diverge.</p>
+          <h2 id="quality-dials">2. Every quality dial turned as close to 11 as possible</h2>
+          <p>Fast, cheap, right: the old triangle says pick two. livespec asks how far "right" can be pushed (testing, review, verification, documentation) while still staying inside real cost and speed constraints.</p>
+        </div>
+
+        <h1>Where things stand</h1>
+        <div class="prose">
+          <p>The project moves fast, so rather than restate it here, these links go straight to the sources of truth.</p>
+        </div>
+        <h2><a href="https://github.com/thewoolleyman/livespec">livespec core</a></h2>
+        <p class="caption">The README: what livespec is, the spec/implementation lifecycle, and the operations.</p>
+        <h2><a href="https://github.com/thewoolleyman/livespec/blob/master/docs/installation.md">Installation</a></h2>
+        <p class="caption">One paste-able agent prompt that sets livespec up on a project.</p>
+        <h2><a href="https://github.com/thewoolleyman/livespec/tree/master/SPECIFICATION">The specification</a></h2>
+        <p class="caption">livespec's own living spec, governed by livespec.</p>
+        <h2><a href="https://github.com/thewoolleyman/livespec-driver-claude">Drivers</a></h2>
+        <p class="caption">Per-agent bindings: <a href="https://github.com/thewoolleyman/livespec-driver-claude">Claude Code</a>, <a href="https://github.com/thewoolleyman/livespec-driver-codex">Codex</a>, and <a href="https://github.com/thewoolleyman/livespec-driver-pi">pi</a>.</p>
+        <h2><a href="https://github.com/thewoolleyman/livespec-orchestrator-beads-fabro">Orchestrators</a></h2>
+        <p class="caption">Implementation-side work tracking: <a href="https://github.com/thewoolleyman/livespec-orchestrator-beads-fabro">Beads/Dolt + Fabro</a>, or zero-infrastructure <a href="https://github.com/thewoolleyman/livespec-orchestrator-git-jsonl">git + JSONL</a>.</p>
+        <h2><a href="https://github.com/thewoolleyman/livespec-dev-tooling">Supporting tools</a></h2>
+        <p class="caption"><a href="https://github.com/thewoolleyman/livespec-dev-tooling">dev-tooling</a>, <a href="https://github.com/thewoolleyman/livespec-runtime">runtime</a>, <a href="https://github.com/thewoolleyman/livespec-console-beads-fabro">console</a>, and <a href="https://github.com/thewoolleyman/livespec-overseer">overseer</a>.</p>
+        <h2><a href="https://github.com/thewoolleyman/livespec/blob/master/docs/activity/livespec-governed-repo-activity.md">Activity</a></h2>
+        <p class="caption">Pull requests and lines changed across every livespec-governed repository.</p>
+        <h2><a href="https://github.com/livespec-ai/livespec-website/tree/main/SPECIFICATION">This website's spec</a></h2>
+        <p class="caption">This site is governed by livespec too.</p>
+
+        <h1>Blog</h1>
+        <h2><a href="/blog/">Read the blog</a></h2>
+        <p class="caption">The journey toward the two goals.</p>
+      </div>
+      <div id="footer">
+        <a href="/">Home</a>
+        <a href="/blog/">Blog</a>
+        <a href="https://github.com/thewoolleyman/livespec">livespec on GitHub</a>
+        <a href="https://thewoolleyweb.com/">thewoolleyweb.com</a>
+      </div>
+    </div>
+  </body>
+</html>
