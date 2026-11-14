@@ -112,7 +112,7 @@ If I had to summarize what I've learned in a sentence: The LLMs are getting bett
 
 <div class="prose">
 
-I'm Chad Woolley, known as [thewoolleyman](https://github.com/thewoolleyman) pretty much everywhere. Ex-GitLab, Ex-Pivotal, Ex-IBM, Open Source. Coder/hacker/sysadmin/ops for 40+ years. Apple II → mainframes → web developer since the web came out → agentic AI → ??? 🤔😳
+I'm Chad Woolley. Bio blurb from my LinkedIn: Ex-GitLab, Ex-Pivotal, Ex-IBM, Open Source. Coder/hacker/sysadmin/ops for 40+ years. Apple II → mainframes → web developer since the web came out → agentic AI → ??? 🤔😳
 
 After getting laid off at GitLab in June 2026 (the fourth "involuntary departure" of my career), I decided to take a hiatus to retool my knowledge and skills at the dawn of the Age of AI, and explore the limits of what is possible. livespec is the vehicle I chose.
 
