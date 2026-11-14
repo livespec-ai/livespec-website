@@ -74,7 +74,7 @@ If I had to summarize what I've learned in a sentence: The LLMs are getting bett
 
 # Links and stuff
 
-## [The specification](https://github.com/thewoolleyman/livespec/tree/master/SPECIFICATION)
+## [The specification](https://github.com/thewoolleyman/livespec/blob/master/SPECIFICATION/spec.md)
 
 <p class="caption">livespec's own living spec, governed by livespec. There's several diagrams here, if you want visuals of how the system works (again, mostly unreviewed after initial generation, and probably badly rotted)</p>
 
