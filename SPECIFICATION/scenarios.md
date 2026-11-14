@@ -10,17 +10,17 @@ Given a visitor opens `https://livespec-ai.org/`
 
 When the page loads
 
-Then the visitor first sees livespec described as a "dark" software factory and an experimental work in progress, with a link to "The Software Factory: A Practitioner's Guide" on thewoolleyweb.com
+Then the visitor sees a description of what livespec is
 
-And the visitor next sees a link to the blog
+And the visitor sees a link to the blog
 
-And the visitor next sees the three goals: the specification–implementation feedback loop, turning quality dials toward 11 within the fast/cheap/right trade-off, and finding the minimal human attention the factory needs
+And the visitor sees the project goals
 
-And the visitor next sees a project-state summary made mostly of links to the livespec GitHub repositories
+And the visitor sees links to the livespec GitHub repositories, including the core README, installation documentation, and specification
 
-And the visitor finally sees who is responsible for livespec: an introduction to Chad Woolley ("thewoolleyman")
+And the visitor sees an introduction to Chad Woolley ("thewoolleyman")
 
-## Scenario: Visitor follows a project-state link
+## Scenario: Visitor follows a repository link
 
 Given a visitor is on the homepage
 
@@ -36,9 +36,11 @@ When the page loads
 
 Then the visitor sees a list of blog entries, newest first, each with its title and publication date
 
-When the visitor selects a placeholder entry
+When the visitor selects an entry
 
-Then the visitor arrives at `/blog/<slug>/` showing the entry's title, author, publication date, and placeholder text
+Then the visitor arrives at `/blog/<slug>/` showing the entry's title, author, publication date, and body
+
+And if the entry is a placeholder, it is clearly marked as a placeholder
 
 And the entry links back to `/blog/` and `/`
 

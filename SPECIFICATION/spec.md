@@ -20,11 +20,7 @@ livespec is presented as a **"dark" software factory** and an
    cost and speed constraints — an explicit engagement with the
    "fast, cheap, right: pick two" triangle.
 3. **Finding the minimal human attention** the factory needs to
-   still produce usable, high-quality implementations — interfacing
-   only with AI surfaces, rarely if ever directly reviewing code or
-   specification, reviewing only the delivered implementation, and
-   relying on observability signals across every aspect of the
-   factory and the implementation for guidance.
+   still produce usable, high-quality implementations.
 
 ## Architecture
 
@@ -50,34 +46,20 @@ The site has exactly two content areas at launch:
 
 ### Homepage
 
-The homepage MUST contain, in this order:
+The homepage MUST contain:
 
-1. **What is livespec** — a short description of livespec as a
-   "dark" software factory and an experimental work in progress,
-   linking to the author's article "The Software Factory: A
-   Practitioner's Guide" at
-   `https://thewoolleyweb.com/software-factory-practitioners-guide.html`.
-2. **Blog link** — a link to `/blog/`.
-3. **Goals** — the three goals named in
-   [Project intent](#project-intent), in that order, each explained
-   in no more than a short paragraph. The quality-dials goal MUST
-   name the fast/cheap/right "pick two" triangle. The
-   minimal-human-attention goal MUST list its four practices
-   (AI surfaces only, rarely reviewing code or specification,
-   reviewing only the delivered implementation, relying on
-   observability signals) as a bulleted sub-list.
-4. **Project state** — a high-level summary of where livespec
-   currently stands. This section MUST rely primarily on links to
-   existing content in the livespec GitHub repositories (READMEs,
-   `docs/`, and `SPECIFICATION/` trees) and MUST NOT duplicate that
-   content beyond a sentence or two of framing per link. At minimum
-   it MUST link to the core `thewoolleyman/livespec` repository's
-   README, its installation documentation, and its `SPECIFICATION/`
-   tree.
-5. **Author** — headed "Who is responsible for this?": the
-   author's professional bio introducing Chad Woolley
-   ("thewoolleyman"), with links to `https://thewoolleyweb.com/`
-   and `https://github.com/thewoolleyman`.
+- a description of what livespec is;
+- a link to `/blog/`;
+- the project goals named in [Project intent](#project-intent);
+- links to the livespec GitHub repositories, including at minimum
+  the core `thewoolleyman/livespec` repository's README, its
+  installation documentation, and its `SPECIFICATION/` tree;
+- an introduction to the author, Chad Woolley ("thewoolleyman"),
+  with links to `https://thewoolleyweb.com/` and
+  `https://github.com/thewoolleyman`.
+
+The wording, order, headings, and any additional content are the
+author's editorial choice.
 
 ### Blog
 
@@ -94,16 +76,10 @@ The blog lives under `/blog/`:
   `https://thewoolleyweb.com/`), and the publication date,
   followed by the body prose, and MUST link back to `/blog/` and
   `/`.
-- At launch the blog contains exactly two entries, each a clearly
-  marked **placeholder** with a humorous Industrial-Revolution-themed
-  title and an Industrial-Revolution-era publication date, so the
-  blog index and article layout can be reviewed with realistic
-  content. Each index summary MUST read "Placeholder for the first
-  entry." or "Placeholder for the second entry." Each placeholder
-  body MUST be several paragraphs of humorous AI-slop-themed
-  lorem-ipsum-style filler text until the author writes the real
-  content. The first entry keeps its original slug,
-  `the-journey-begins`.
+- Until the author writes real entries, the blog MAY contain
+  placeholder entries; each placeholder MUST be clearly marked as a
+  placeholder. Entry titles, dates, and body content are the
+  author's editorial choice.
 
 The blog's subject is the author's journey exploring the
 project goals.
