@@ -1,7 +1,7 @@
-# livespec-ai.com — the livespec project website — specification overview
+# livespec-ai.org — the livespec project website — specification overview
 
 This `SPECIFICATION/` directory holds the living specification for
-the livespec project website at `https://livespec-ai.com`, governed
+the livespec project website at `https://livespec-ai.org`, governed
 by livespec's propose-change/revise loop. The
 `livespec-with-diagrams` template ships six spec files plus the
 `proposed_changes/` and `history/` machinery:

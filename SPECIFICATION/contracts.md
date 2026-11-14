@@ -1,4 +1,4 @@
-# livespec-ai.com — contracts
+# livespec-ai.org — contracts
 
 This file enumerates the site's externally observable interfaces:
 its URL surface and the per-page HTML contract every page honors.
@@ -6,7 +6,7 @@ its URL surface and the per-page HTML contract every page honors.
 ## URL surface
 
 All URLs are served from the canonical origin
-`https://livespec-ai.com`.
+`https://livespec-ai.org`.
 
 | URL | Content |
 |---|---|
@@ -21,8 +21,8 @@ All URLs are served from the canonical origin
 Rules:
 
 - `http://` requests MUST redirect to `https://`.
-- `https://www.livespec-ai.com/<path>` MUST redirect permanently
-  to `https://livespec-ai.com/<path>`.
+- `https://www.livespec-ai.org/<path>` MUST redirect permanently
+  to `https://livespec-ai.org/<path>`.
 - Directory URLs are served from `<dir>/index.html`; links MUST use
   the trailing-slash directory form (`/blog/`, not
   `/blog/index.html`).
@@ -40,7 +40,7 @@ Every HTML page MUST:
 - Have a unique `<title>` and a unique
   `<meta name="description">` describing that page.
 - Include `<link rel="canonical">` with the page's absolute
-  canonical URL on `https://livespec-ai.com`.
+  canonical URL on `https://livespec-ai.org`.
 - Include Open Graph tags `og:title`, `og:description`, `og:url`,
   and `og:type` (`website` for the homepage and blog index,
   `article` for blog entries).
