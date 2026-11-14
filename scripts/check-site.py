@@ -12,6 +12,7 @@ external requests.
 
 from __future__ import annotations
 
+import json
 import os
 import re
 import sys
@@ -24,6 +25,8 @@ from pathlib import Path
 from urllib.parse import unquote, urldefrag, urljoin, urlparse
 
 import html5lib
+
+import render
 
 
 ORIGIN = "https://livespec-ai.org"
@@ -134,6 +137,53 @@ def resolve_local(path: str) -> Path | None:
     if path.endswith("/") or target.is_dir():
         target = target / "index.html"
     return target if target.is_file() else None
+
+
+EXTERNAL = re.compile(r"^(?:[A-Za-z][A-Za-z0-9+.-]*:|/)")
+HREF = re.compile(r"""href\s*=\s*(?:"([^"]*)"|'([^']*)')""")
+
+
+def link_targets(source: str, *extra: str) -> list[str]:
+    """Every link target in a Markdown source, in document order, as pandoc reads it."""
+    doc = json.loads(render.pandoc(f"--from={render.READER}", "--to=json", *extra, stdin=source))
+    found: list[str] = []
+
+    def walk(node: object) -> None:
+        if isinstance(node, dict):
+            if node.get("t") == "Link":
+                found.append(node["c"][2][0])
+            elif node.get("t") in ("RawInline", "RawBlock") and node["c"][0] == "html":
+                found.extend(a or b for a, b in HREF.findall(node["c"][1]))
+            for value in node.values():
+                walk(value)
+        elif isinstance(node, list):
+            for value in node:
+                walk(value)
+
+    walk(doc["blocks"])
+    return found
+
+
+def check_link_rewrites() -> None:
+    """The .md->.html link filter never changes an external (scheme, //, or /) link, and
+    changes an internal link only by turning a trailing .md path into .html."""
+    for src in render.sources():
+        page = "/" + src.relative_to(render.CONTENT).as_posix()
+        text = src.read_text()
+        before = link_targets(text)
+        after = link_targets(text, f"--lua-filter={render.LINK_FILTER}")
+        if len(before) != len(after):
+            fail(page, f"link filter changed the number of links ({len(before)} -> {len(after)})")
+            continue
+        for old, new in zip(before, after):
+            if EXTERNAL.match(old):
+                if new != old:
+                    fail(page, f"link filter changed external link {old!r} to {new!r}")
+                continue
+            path, sep = re.match(r"([^?#]*)(.*)$", old).group(1, 2)
+            expected = path[:-3] + ".html" + sep if path.endswith(".md") else old
+            if new != expected:
+                fail(page, f"link filter rewrote {old!r} to {new!r}, expected {expected!r}")
 
 
 def main() -> int:
@@ -264,6 +314,7 @@ def main() -> int:
     expected = {ORIGIN + p for p in pages if p != "/404.html"}
     if set(locs) != expected:
         fail("/sitemap.xml", f"must list exactly {sorted(expected)}, got {sorted(locs)}")
+    check_link_rewrites()
     robots = (SITE / "robots.txt").read_text()
     if f"Sitemap: {ORIGIN}/sitemap.xml" not in robots:
         fail("/robots.txt", "must reference the sitemap")
