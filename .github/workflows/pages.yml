@@ -1,5 +1,5 @@
 # Check the site on every PR and push; deploy site/ to GitHub Pages from main.
-# SPECIFICATION/non-functional-requirements.md §"Hooks and CI", §"Publishing".
+# Hooks/CI and publishing rules: SPECIFICATION/non-functional-requirements.md.
 name: Pages
 
 on:

@@ -1,7 +1,7 @@
 """Check the publishable site under site/ (run via `just check`).
 
-Implements SPECIFICATION/non-functional-requirements.md §"Check-aggregate
-command": HTML validity, a site-wide link check, and the per-page contract
+Implements the check-aggregate command in
+SPECIFICATION/non-functional-requirements.md: HTML validity, a site-wide link check, and the per-page contract
 check from SPECIFICATION/contracts.md. Exits 1 on any failure.
 
 External links: 404/410 fail; 403/429, timeouts and network errors are
@@ -128,7 +128,7 @@ def main() -> int:
         page = Page()
         page.feed(text)
         pages[upath] = page
-        # Per-page contract (contracts.md §"Per-page HTML contract").
+        # Per-page contract (SPECIFICATION/contracts.md).
         if page.lang != "en":
             fail(upath, '<html lang="en"> required')
         if page.meta.get("charset", "").lower() != "utf-8":
