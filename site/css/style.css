@@ -211,6 +211,94 @@ padding: 20px 16px 16px;
 }
 }
 
+/*** Markdown elements in prose and article bodies (rendered by pandoc) ***/
+
+#content .prose ol,
+#content .article .body ol,
+#content .article .body table,
+#content .article .body pre {
+margin: 0 0 1.1em;
+}
+
+#content .article .body h3 {
+font-size: 1.15em;
+line-height: 1.3;
+margin: 1.4em 0 0.4em;
+padding: 0;
+}
+
+#content .prose blockquote {
+border-left: 4px solid #808080;
+color: #303030;
+font-style: italic;
+margin: 0 0 1em;
+padding: 0 0 0 1em;
+}
+
+#content .prose code,
+#content .article .body code {
+background: rgba(0, 0, 0, 0.07);
+color: #202020;
+font-family: Menlo, Consolas, monospace;
+font-size: 0.9em;
+padding: 0.1em 0.3em;
+}
+
+#content .prose pre,
+#content .article .body pre {
+background: rgba(0, 0, 0, 0.07);
+color: #202020;
+line-height: 1.45;
+overflow-wrap: normal;
+overflow-x: auto;
+padding: 0.8em 1em;
+white-space: pre;
+}
+
+#content .prose pre code,
+#content .article .body pre code {
+background: none;
+font-size: 0.9em;
+padding: 0;
+}
+
+#content .prose table,
+#content .article .body table {
+border-collapse: collapse;
+display: block;
+max-width: 100%;
+overflow-x: auto;
+}
+
+#content .prose th,
+#content .prose td,
+#content .article .body th,
+#content .article .body td {
+border: 1px solid #808080;
+padding: 0.3em 0.6em;
+text-align: left;
+vertical-align: top;
+}
+
+#content .prose th,
+#content .article .body th {
+background: rgba(0, 0, 0, 0.07);
+font-weight: bold;
+}
+
+#content .prose hr,
+#content .article .body hr {
+border: 0;
+border-top: 1px solid #808080;
+margin: 1.5em 0;
+}
+
+#content .prose img,
+#content .article .body img {
+height: auto;
+max-width: 100%;
+}
+
 /*** Footer ***/
 
 #footer {

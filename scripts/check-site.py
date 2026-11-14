@@ -1,8 +1,9 @@
 """Check the publishable site under site/ (run via `just check`).
 
 Implements the check-aggregate command in
-SPECIFICATION/non-functional-requirements.md: HTML validity, a site-wide link check, and the per-page contract
-check from SPECIFICATION/contracts.md. Exits 1 on any failure.
+SPECIFICATION/non-functional-requirements.md: HTML validity, a site-wide link check, the per-page contract
+check from SPECIFICATION/contracts.md, and the render-drift check (every page under site/
+matches what its content/ Markdown source renders to, ignoring whitespace). Exits 1 on any failure.
 
 External links: 404/410 fail; 403/429, timeouts and network errors are
 reported as unverified (not failures). Set SITE_CHECK_OFFLINE=1 to skip
@@ -12,7 +13,9 @@ external requests.
 from __future__ import annotations
 
 import os
+import re
 import sys
+import tempfile
 import urllib.error
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -22,6 +25,8 @@ from pathlib import Path
 from urllib.parse import unquote, urldefrag, urljoin, urlparse
 
 import html5lib
+
+import render
 
 ORIGIN = "https://livespec-ai.org"
 SITE = Path(__file__).resolve().parent.parent / "site"
@@ -131,6 +136,26 @@ def resolve_local(path: str) -> Path | None:
     if path.endswith("/") or target.is_dir():
         target = target / "index.html"
     return target if target.is_file() else None
+
+
+def without_whitespace(text: str) -> str:
+    """Collapse whitespace runs and drop whitespace beside tags, so only non-whitespace differences remain."""
+    return re.sub(r"\s*(<[^>]+>)\s*", r"\1", re.sub(r"\s+", " ", text)).strip()
+
+
+def check_render_drift() -> None:
+    with tempfile.TemporaryDirectory() as tmp:
+        rendered = {p.as_posix() for p in render.render_all(Path(tmp))}
+        for page in sorted(rendered):
+            committed = SITE / page
+            if not committed.exists():
+                fail("/" + page, "has a Markdown source but no committed page; run `just render`")
+            elif without_whitespace(committed.read_text(encoding="utf-8")) != without_whitespace(
+                    (Path(tmp) / page).read_text(encoding="utf-8")):
+                fail("/" + page, "differs from its rendered Markdown source; run `just render`")
+    for file in sorted(SITE.rglob("*.html")):
+        if file.relative_to(SITE).as_posix() not in rendered:
+            fail(url_path(file), f"has no Markdown source under {render.CONTENT.name}/")
 
 
 def main() -> int:
@@ -268,6 +293,8 @@ def main() -> int:
         fail("/CNAME", "must contain livespec-ai.org")
     if not (SITE / ".nojekyll").exists():
         fail("/.nojekyll", "must exist")
+
+    check_render_drift()
 
     # External links.
     if os.environ.get("SITE_CHECK_OFFLINE") != "1":
