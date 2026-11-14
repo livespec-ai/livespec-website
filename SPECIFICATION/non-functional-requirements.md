@@ -44,7 +44,10 @@ repository tooling live here.
   rendered HTML directly. Edits preserve the site's existing markup
   conventions, relative structure, and published URLs.
   Site-specific markup MAY be written as raw HTML inside the
-  Markdown. Rendered HTML pages under `site/` are build output: they
+  Markdown. An internal link in a Markdown source SHOULD target the
+  linked page's Markdown source by relative path (for example
+  `blog/index.md`), so the link also works when browsing `content/`
+  on GitHub. Rendered HTML pages under `site/` are build output: they
   MUST be gitignored and MUST NOT be committed. Static assets under
   `site/` (`css/`, `CNAME`, `robots.txt`, `sitemap.xml`,
   `.nojekyll`) stay committed.
@@ -106,6 +109,13 @@ visitors.
   `/404.html`. Before rendering, `just render` MUST remove every
   previously rendered HTML page under `site/`, so a deleted or
   renamed source leaves no stale page.
+- `just render` MUST rewrite every relative link whose path ends in
+  `.md` (optionally followed by a `?query` or `#fragment`, which are
+  kept) to the same path ending in `.html`, both in Markdown links
+  and in `href` attributes of raw HTML in the source. It MUST NOT
+  rewrite a link that has a URL scheme (such as `https:` or
+  `mailto:`), a protocol-relative link (`//host/...`), or a
+  root-absolute link (`/...`).
 - `just preview` MUST run `just render`, print the `file://` URL
   of `site/index.html`, and open it with the platform opener
   (`open` on macOS, `xdg-open` on Linux).
@@ -228,6 +238,18 @@ Given a Markdown source under `content/` was rendered and then deleted
 When a contributor runs `just render`
 
 Then no HTML page for the deleted source remains under `site/`
+
+### Scenario: Internal .md links render as .html links
+
+Given a Markdown source under `content/` links to `blog/index.md` in a Markdown link and to `the-journey-begins/index.md#intro` in a raw HTML `href`
+
+And it links to `https://github.com/thewoolleyman/livespec/blob/main/README.md`
+
+When a contributor runs `just render`
+
+Then the rendered page links to `blog/index.html` and `the-journey-begins/index.html#intro`
+
+And the external link to `README.md` on GitHub is unchanged
 
 ### Scenario: The maintainer's direct content edit goes live
 

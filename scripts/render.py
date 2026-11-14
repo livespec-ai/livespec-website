@@ -3,6 +3,8 @@
 Implements the render command in SPECIFICATION/non-functional-requirements.md:
 each Markdown source becomes the page at the same relative path under site/
 (.md -> .html), through the one shared template templates/page.html.
+Relative links to other sources (foo/index.md) are rewritten to their pages
+(foo/index.html) by the pandoc filter scripts/md-links.lua.
 Rendered pages are gitignored build output: `just check` and the deploy
 workflow both render before using site/, and every render first removes
 the previously rendered pages so a deleted source leaves no stale page.
@@ -28,6 +30,7 @@ ROOT = Path(__file__).resolve().parent.parent
 CONTENT = ROOT / "content"
 SITE = ROOT / "site"
 TEMPLATE = ROOT / "templates" / "page.html"
+LINK_FILTER = ROOT / "scripts" / "md-links.lua"
 ORIGIN = "https://livespec-ai.org"
 READER = "gfm-gfm_auto_identifiers+attributes"
 
@@ -88,7 +91,8 @@ def render_page(src: Path) -> tuple[Path, str]:
             "published": published.isoformat(),
             "published-display": f"{published:%B} {published.day}, {published.year}",
         }
-    args = [f"--from={READER}", "--to=html5", "--wrap=none", f"--template={TEMPLATE}"]
+    args = [f"--from={READER}", "--to=html5", "--wrap=none", f"--template={TEMPLATE}",
+            f"--lua-filter={LINK_FILTER}"]
     args += [f"--variable={k}={attr(v)}" for k, v in variables.items()]
     return page, pandoc(*args, stdin=source)
 

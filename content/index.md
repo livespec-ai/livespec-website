@@ -15,7 +15,7 @@ For the genesis of some of the ideas behind it, see my February 2026 article [Th
 
 # Blog
 
-## [Read the blog](blog/index.html)
+## [Read the blog](blog/index.md)
 
 <p class="caption">The journey toward the goals below.</p>
 
