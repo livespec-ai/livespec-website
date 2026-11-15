@@ -62,7 +62,7 @@ In the pursuit of Goal 3 above (minimal attention), I've gone through several di
 
 Hence the plethora of "supervisors", "overseers", "coordinators", "consoles", "cockpits", etc., scattered across the repos below.
 
-I've also explored how to automate the enforcement of Goal 1. For example, requiring Gherkin Use-Case "GIVEN-WHEN-THEN" style scenarios in the specification for all new features (example from the livespec's own [SPECIFICATION/scenarios.md](https://github.com/thewoolleyman/livespec/blob/master/SPECIFICATION/scenarios.md)). Then I mechanically require that each scenario have at least one associated E2E top-of-the-testing-pyramid test, and require that all work items have Definition-of-Done requirements, which are in turn required to be anchored to a scenario in the specification.
+I've also explored how to automate the enforcement of Goal 1. For example, requiring Gherkin Use-Case "GIVEN-WHEN-THEN" style scenarios in the specification for all new features (example from the livespec's own [SPECIFICATION/scenarios.md](https://github.com/livespec-ai/livespec/blob/master/SPECIFICATION/scenarios.md)). Then I mechanically require that each scenario have at least one associated E2E top-of-the-testing-pyramid test, and require that all work items have Definition-of-Done requirements, which are in turn required to be anchored to a scenario in the specification.
 
 However, as the system has grown and I've invested most heavily in Goals 2 and 3, and automation of Goal 1, the "cheap" and "fast" sides of the triangle suffered greatly as they tried to maintain the hard-enforced "right" quality standard, with minimal attention. I have also leaned into 
 
@@ -76,33 +76,33 @@ If I had to summarize what I've learned in a sentence: The LLMs are getting bett
 
 # Links and stuff
 
-## [The specification](https://github.com/thewoolleyman/livespec/blob/master/SPECIFICATION/spec.md)
+## [The specification](https://github.com/livespec-ai/livespec/blob/master/SPECIFICATION/spec.md)
 
 <p class="caption">livespec's own living spec, governed by livespec. There's several diagrams here, if you want visuals of how the system works (again, mostly unreviewed after initial generation, and probably badly rotted)</p>
 
-## [Activity](https://github.com/thewoolleyman/livespec/blob/master/docs/activity/livespec-governed-repo-activity.md)
+## [Activity](https://github.com/livespec-ai/livespec/blob/master/docs/activity/livespec-governed-repo-activity.md)
 
 <p class="caption">Pull requests and lines changed across every livespec-governed repository.</p>
 
-## [livespec core](https://github.com/thewoolleyman/livespec)
+## [livespec core](https://github.com/livespec-ai/livespec)
 
 <p class="caption">The README: what livespec is, the spec/implementation lifecycle, and the operations.</p>
 
-## [Installation](https://github.com/thewoolleyman/livespec/blob/master/docs/installation.md)
+## [Installation](https://github.com/livespec-ai/livespec/blob/master/docs/installation.md)
 
 <p class="caption">One paste-able agent prompt that sets livespec up on a project. It kind of works, but several bugs in the backlog for it. ;)</p>
 
-## [Drivers](https://github.com/thewoolleyman/livespec-driver-claude)
+## [Drivers](https://github.com/livespec-ai/livespec-driver-claude)
 
-<p class="caption">Per-agent bindings for LLM harnesses: <a href="https://github.com/thewoolleyman/livespec-driver-claude">Claude Code</a>, <a href="https://github.com/thewoolleyman/livespec-driver-codex">Codex</a>, and <a href="https://github.com/thewoolleyman/livespec-driver-pi">pi</a>.</p>
+<p class="caption">Per-agent bindings for LLM harnesses: <a href="https://github.com/livespec-ai/livespec-driver-claude">Claude Code</a>, <a href="https://github.com/livespec-ai/livespec-driver-codex">Codex</a>, and <a href="https://github.com/livespec-ai/livespec-driver-pi">pi</a>.</p>
 
-## [Orchestrators](https://github.com/thewoolleyman/livespec-orchestrator-beads-fabro)
+## [Orchestrators](https://github.com/livespec-ai/livespec-orchestrator-beads-fabro)
 
-<p class="caption">Implementation-side work tracking: <a href="https://github.com/thewoolleyman/livespec-orchestrator-beads-fabro">Beads/Dolt + Fabro</a>, or zero-infrastructure <a href="https://github.com/thewoolleyman/livespec-orchestrator-git-jsonl">git + JSONL</a> (the git/JSONL is an incomplete reference implementation, not practical for actual factory work at scale. The main learning here is that you DO NOT WANT TO STORE YOUR TASK ACTIVITY LEDGER IN GIT).</p>
+<p class="caption">Implementation-side work tracking: <a href="https://github.com/livespec-ai/livespec-orchestrator-beads-fabro">Beads/Dolt + Fabro</a>, or zero-infrastructure <a href="https://github.com/livespec-ai/livespec-orchestrator-git-jsonl">git + JSONL</a> (the git/JSONL is an incomplete reference implementation, not practical for actual factory work at scale. The main learning here is that you DO NOT WANT TO STORE YOUR TASK ACTIVITY LEDGER IN GIT).</p>
 
-## [Supporting tools](https://github.com/thewoolleyman/livespec-dev-tooling)
+## [Supporting tools](https://github.com/livespec-ai/livespec-dev-tooling)
 
-<p class="caption"><a href="https://github.com/thewoolleyman/livespec-dev-tooling">dev-tooling</a>, <a href="https://github.com/thewoolleyman/livespec-runtime">runtime</a>, <a href="https://github.com/thewoolleyman/livespec-console-beads-fabro">console</a>, and <a href="https://github.com/thewoolleyman/livespec-overseer">overseer</a>.</p>
+<p class="caption"><a href="https://github.com/livespec-ai/livespec-dev-tooling">dev-tooling</a>, <a href="https://github.com/livespec-ai/livespec-runtime">runtime</a>, <a href="https://github.com/livespec-ai/livespec-console-beads-fabro">console</a>, and <a href="https://github.com/livespec-ai/livespec-overseer">overseer</a>.</p>
 
 ## [This website's spec](https://github.com/livespec-ai/livespec-website/tree/main/SPECIFICATION)
 

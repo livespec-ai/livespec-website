@@ -32,7 +32,7 @@ import render
 ORIGIN = "https://livespec-ai.org"
 SITE = Path(__file__).resolve().parent.parent / "site"
 GOATCOUNTER = "https://livespec-ai.goatcounter.com/count"
-FOOTER_LINKS = {"/", "/blog/", "https://github.com/thewoolleyman/livespec", "https://thewoolleyweb.com/"}
+FOOTER_LINKS = {"/", "/blog/", "https://github.com/livespec-ai/livespec", "https://thewoolleyweb.com/"}
 AUTHOR = "Chad Woolley"
 AUTHOR_URL = "https://thewoolleyweb.com/"
 SKIP_SCHEMES = ("mailto:", "tel:", "javascript:", "data:")
