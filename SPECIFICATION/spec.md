@@ -56,7 +56,7 @@ The homepage MUST contain:
 - a link to `/blog/`;
 - the project goals named in [Project intent](#project-intent);
 - links to the livespec GitHub repositories, including at minimum
-  the core `thewoolleyman/livespec` repository's README, its
+  the core `livespec-ai/livespec` repository's README, its
   installation documentation, and its `SPECIFICATION/` tree;
 - an introduction to the author, Chad Woolley ("thewoolleyman"),
   with links to `https://thewoolleyweb.com/` and

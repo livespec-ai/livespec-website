@@ -59,7 +59,7 @@ Every HTML page MUST:
 - Include the site traffic-metrics tag (see
   [constraints.md](constraints.md#traffic-metrics)).
 - Contain a header with the site title linking to `/`, and a
-  footer linking to `/`, `/blog/`, the `thewoolleyman/livespec`
+  footer linking to `/`, `/blog/`, the `livespec-ai/livespec`
   GitHub repository, and `https://thewoolleyweb.com/`.
 
 ## Blog entry contract

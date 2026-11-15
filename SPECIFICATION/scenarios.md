@@ -26,7 +26,7 @@ Given a visitor is on the homepage
 
 When the visitor follows the link to the livespec installation documentation
 
-Then the visitor arrives at that documentation in the `thewoolleyman/livespec` GitHub repository
+Then the visitor arrives at that documentation in the `livespec-ai/livespec` GitHub repository
 
 ## Scenario: Visitor browses the blog
 
