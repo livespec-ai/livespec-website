@@ -243,7 +243,7 @@ Then no HTML page for the deleted source remains under `site/`
 
 Given a Markdown source under `content/` links to `blog/index.md` in a Markdown link and to `the-journey-begins/index.md#intro` in a raw HTML `href`
 
-And it links to `https://github.com/thewoolleyman/livespec/blob/main/README.md`
+And it links to `https://github.com/livespec-ai/livespec/blob/main/README.md`
 
 When a contributor runs `just render`
 
