@@ -1,0 +1,47 @@
+# Merge-gate CI: runs on pull requests and in the org merge queue, and reports
+# one aggregate `ci-green` context over the checks this repo has today.
+# Ruling: coordinator (throughput-plans-coordinator), 2026-11-16, basis
+# livespec-dev-tooling-frkuef. The Pages workflow (pages.yml) is unchanged and
+# still owns the deploy.
+name: CI
+
+on:
+  pull_request:
+  merge_group:
+    types: [checks_requested]
+
+permissions:
+  contents: read
+
+jobs:
+  actionlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Run actionlint v1.7.7
+        run: |
+          bash <(curl -fsSL https://raw.githubusercontent.com/rhysd/actionlint/v1.7.7/scripts/download-actionlint.bash) 1.7.7
+          ./actionlint -color
+
+  site-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - run: uv sync --all-groups
+      - run: just check
+
+  ci-green:
+    if: ${{ always() }}
+    needs: [actionlint, site-check]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fail unless every needed job succeeded
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+        run: |
+          echo "needed results: $RESULTS"
+          if echo "$RESULTS" | grep -Eq 'failure|cancelled|skipped'; then
+            echo "ci-green: a needed job did not succeed" >&2
+            exit 1
+          fi
