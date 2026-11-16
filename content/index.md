@@ -7,9 +7,11 @@ description: "livespec is an experimental \"dark\" software factory by Chad Wool
 
 <div class="prose">
 
-livespec is a **"dark" software factory**: AI agents turn a living, natural-language specification into a working implementation, with as little human involvement as possible. The lights are off because nobody needs to be on the factory floor. It's an **experimental work in progress**.
+livespec is a **"dark" software factory**: AI agents turn a living, natural-language specification into a working implementation, _and keep them in sync_, with as little human involvement as possible. It's an **experimental work in progress**.
 
 For the genesis of some of the ideas behind it, see my February 2026 article [The Software Factory: A Practitioner's Guide](https://thewoolleyweb.com/software-factory-practitioners-guide.html), which explores the earliest iterations of the "dark factory" approach.
+
+Like livespec, this website is an early work in progress. I threw it together to have _some_ human-facing explanation of livespec that I could share with other humans, because nothing in the actual projects themselves is human-facing.
 
 </div>
 
@@ -17,7 +19,7 @@ For the genesis of some of the ideas behind it, see my February 2026 article [Th
 
 ## [Read the blog](blog/index.md)
 
-<p class="caption">The journey toward the goals below.</p>
+<p class="caption">(not yet started, for now, just see my ramblings below...)</p>
 
 # Goals
 
@@ -64,13 +66,15 @@ Hence the plethora of "supervisors", "overseers", "coordinators", "consoles", "c
 
 I've also explored how to automate the enforcement of Goal 1. For example, requiring Gherkin Use-Case "GIVEN-WHEN-THEN" style scenarios in the specification for all new features (example from the livespec's own [SPECIFICATION/scenarios.md](https://github.com/livespec-ai/livespec/blob/master/SPECIFICATION/scenarios.md)). Then I mechanically require that each scenario have at least one associated E2E top-of-the-testing-pyramid test, and require that all work items have Definition-of-Done requirements, which are in turn required to be anchored to a scenario in the specification.
 
-However, as the system has grown and I've invested most heavily in Goals 2 and 3, and automation of Goal 1, the "cheap" and "fast" sides of the triangle suffered greatly as they tried to maintain the hard-enforced "right" quality standard, with minimal attention. I have also leaned into 
+However, as the system has grown and I've invested most heavily in Goals 2 and 3, and automation of Goal 1, the "cheap" and "fast" sides of the triangle suffered greatly as they tried to maintain the hard-enforced "right" quality standard, with minimal attention.
 
-This, in turn has forced me to divert attention the from Goal 1 in an attempt to stop the spend from spiraling out of control into the 4-figures-plus-monthly $USD range on tokens and infra (now at well over a dozen machines running kubernetes worker nodes across the cloud and my homelab).
+Furthermore, when you let the LLMs loose without oversight to manage all their own markdown prose - the specs, prompts, skills, work items, etc. - they are egregiously and ridiculously verbose. They never delete anything, they only add more. When multiplied across the dozens of agent sessions required to run an active livespec, this adds up to an obscenely wasteful token spend, burning tons of unnecessary context.  I know there's many ways I could improve this (focus on caching, approaches like [Pyramid Summaries](https://factory.strongdm.ai/techniques/pyramid-summaries), etc.), but I chose not to prioritize much attention on this.
 
-Which is, in itself, a very useful learning outcome from the experiment: This endeavour is *EXPENSIVE* and *RESOURCE INTENSIVE*.
+This intentional and self-inflicted inattention to wastefulness has, in turn, forced me to divert attention the from Goal 1 in an attempt to stop the spend from spiraling out of control into the 4-figures-plus-monthly $USD range on tokens and infra. I'm now at multiple top-tier LLM subscriptions, and well over a dozen machines running kubernetes worker nodes across the cloud and my homelab.
 
-If I had to summarize what I've learned in a sentence: The LLMs are getting better, very fast, but for the foreseeable future, they are polymath geniuses who have the memories of a fruit fly and are incapable of seeing the forest for the trees.
+All of which is, in itself, a very useful learning outcome from the experiment: This endeavour is *EXPENSIVE* and *RESOURCE INTENSIVE*, and *LACK OF ATTENTION* to those areas makes them compound quickly.
+
+**_If I had to summarize what I've learned in a couple of sentences: The LLMs are getting better, very fast, but for the foreseeable future, they are polymath geniuses who have the memories of a fruit fly and are incapable of seeing the forest for the trees. And throwing more money and resources at them will only get you so far._**
 
 </div>
 
