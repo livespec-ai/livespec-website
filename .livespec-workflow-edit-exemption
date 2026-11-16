@@ -1,4 +1,4 @@
-work_item=lsw-8tk
-reason=Deploy job renders site/ from content/ at deploy time (spec v007) so maintainer Markdown edits on main go live without local tooling; maintainer-authorized in-session 2026-11-14.
+work_item=lsw-f5f35f
+reason=Adds ci.yml (pull_request and merge_group checks_requested; actionlint, site-check, ci-green aggregate) so the org merge queue can run; coordinator ruling 2026-11-16 under livespec-dev-tooling-frkuef; new file, hosted runners only.
 change=additive
 ci_runtime=no-significant-increase
