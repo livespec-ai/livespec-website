@@ -15,6 +15,14 @@ bootstrap:
 install-worktree-pack:
     uv run python -m livespec_dev_tooling.install_worktree_pack
 
+# Refresh this checkout's project-scope plugins from the committed
+# .claude/settings.json. The SessionStart hook in that file runs this recipe so
+# each new session's plugins are current; it never moves an installed
+# orchestrator build (that is `just adopt-orchestrator-build` in
+# livespec-dev-tooling).
+ensure-plugins:
+    mise exec -- uv run --no-sync python -m livespec_dev_tooling.fleet.ensure_plugins
+
 # Render, then run every check (the check-aggregate command in SPECIFICATION/non-functional-requirements.md).
 check: render
     uv run python scripts/check-site.py
